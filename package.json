@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "build": "NODE_ENV=production webpack && zip -r -j pack.zip dist/*",
+    "dev": "webpack --watch",
+    "lint": "eslint --ignore-pattern dist."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-classes": "^7.12.1",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^7.0.0",
+    "eslint": "^7.15.0",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  }
+}

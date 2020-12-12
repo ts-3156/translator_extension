@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "Deep Translator",
+  "version": "0.1",
+  "description": "Automatic translation powered by DeepL",
+  "icons": {
+    "128": "icon128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "js": [
+        "jquery.min.js",
+        "contentscript.js"
+      ]
+    }
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "options_page": "options.html",
+  "permissions": [],
+  "web_accessible_resources": [
+    "options.html",
+    "popup.html",
+    "button.html"
+  ]
+}

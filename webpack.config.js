@@ -8,10 +8,9 @@ module.exports = {
   devtool: devtool,
   mode: mode,
   entry: {
-    background: './background.js',
-    contentscript: './contentscript.js',
-    i18n: './lib/i18n.js',
-    options_script: './lib/options_script.js'
+    background: './src/background.js',
+    contentscript: './src/contentscript.js',
+    options_script: './src/options_script.js'
   },
   output: {
     filename: '[name].js',
@@ -34,11 +33,11 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        'manifest.json',
-        '*.png',
-        'options.html',
-        'lib/popup.html',
-        'lib/button.html',
+        'assets/manifest.json',
+        'assets/icon128.png',
+        'assets/options.html',
+        'assets/popup.html',
+        'assets/button.html',
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/popper.js/dist/popper.min.js',
         'node_modules/bootstrap/dist/js/bootstrap.min.js',

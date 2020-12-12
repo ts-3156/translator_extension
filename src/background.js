@@ -1,4 +1,4 @@
-import {Preferences} from './lib/preferences'
+import {Preferences} from './preferences'
 
 function translate(word, sendResponse) {
   const pref = new Preferences()

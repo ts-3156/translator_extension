@@ -16,7 +16,7 @@ function removePopup() {
 function showButton(e, word) {
   word = (' ' + word).slice(1)
 
-  const $elem = $('<div/>', {id: 'button-translate'})
+  const $elem = $('<div/>', {id: 'button-translate', style: 'z-index: 10000;'})
   $elem.html(templates['button-translate-template'].innerHTML)
   $elem.css({position: 'fixed', top: -1000, left: -1000})
 
@@ -30,12 +30,12 @@ function showButton(e, word) {
 
   setTimeout(function () {
     const pos = calculatePosition(e.clientX, e.clientY, $elem)
-    $elem.css({position: 'absolute', top: pos.y, left: pos.x})
+    $elem.css({position: 'absolute', top: pos.y + 10, left: pos.x})
   }, 0)
 }
 
 function showPopup(e, content) {
-  const $elem = $('<div/>', {id: 'popup-translate', style: 'width: 400px;'})
+  const $elem = $('<div/>', {id: 'popup-translate', style: 'z-index: 10000; width: 400px;'})
 
   $elem.html(templates['popup-translate-template'].innerHTML)
   $elem.css({position: 'fixed', top: -1000, left: -1000})

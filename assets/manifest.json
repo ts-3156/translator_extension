@@ -30,8 +30,13 @@
     }
   ],
   "content_security_policy": "script-src 'self'; object-src 'self'",
+  "key": null,
+  "oauth2": {
+    "client_id": null,
+    "scopes":["https://www.googleapis.com/auth/userinfo.email"]
+  },
   "options_page": "options.html",
-  "permissions": [],
+  "permissions": ["identity"],
   "web_accessible_resources": [
     "options.html",
     "popup.html",

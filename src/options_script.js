@@ -78,8 +78,48 @@ function updateUI() {
   setLabels()
 }
 
+function updateProfile(email, picture) {
+  $('#profile-email').text(email)
+  $('#profile-picture').attr('src', picture).show()
+}
+
+function getProfile(done, fail) {
+  chrome.identity.getAuthToken({interactive: true}, function (token) {
+    const init = {
+      method: 'GET',
+      async: true,
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      'contentType': 'json'
+    }
+    fetch('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + token, init)
+      .then(function (res) {
+        if (res.status === 200) {
+          res.json().then(done)
+        } else {
+          fail()
+        }
+      })
+  })
+}
+
+function signIn() {
+  getProfile(function (data) {
+    updateProfile(data.email, data.picture)
+  }, function () {
+    chrome.tabs.create({url: process.env.AUTHORIZATION_URL})
+  })
+}
+
 $(function () {
   updateUI()
+
+  $('#website').on('click', function () {
+    chrome.tabs.create({url: process.env.WEBSITE})
+  })
+  $('#sign-in').on('click', signIn)
 
   $('#save').on('click', function () {
     saveOptions()

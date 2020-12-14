@@ -1,5 +1,9 @@
 const path = require('path')
+const DotenvPlugin = require('dotenv-webpack')
 const CopyPlugin = require('copy-webpack-plugin')
+
+const dotenv = require('dotenv')
+const env = dotenv.config().parsed
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 const devtool = mode === 'production' ? false : 'inline-source-map'
@@ -31,9 +35,19 @@ module.exports = {
     ]
   },
   plugins: [
+    new DotenvPlugin(),
     new CopyPlugin({
       patterns: [
-        'assets/manifest.json',
+        {
+          from: 'assets/manifest.json',
+          to: 'manifest.json',
+          transform: function (content) {
+            const manifest = JSON.parse(content.toString())
+            manifest.key = env.MANIFEST_KEY
+            manifest.oauth2.client_id = env.MANIFEST_OAUTH2_CLIENT_ID
+            return JSON.stringify(manifest)
+          }
+        },
         'assets/icon128.png',
         'assets/options.html',
         'assets/popup.html',

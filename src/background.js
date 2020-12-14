@@ -2,10 +2,9 @@ import {Preferences} from './preferences'
 
 function translate(word, sendResponse) {
   const pref = new Preferences()
-  const key = [KEY]
 
   const data = {
-    auth_key: key,
+    auth_key: process.env.TRANSLATION_AUTH_KEY,
     text: word,
     tag_handling: 0,
     target_lang: pref.targetLanguage()
@@ -72,6 +71,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.error('Unknown handler')
     sendResponse({})
   }
+})
+
+chrome.browserAction.onClicked.addListener(function () {
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage()
+  } else {
+    window.open(chrome.runtime.getURL('options.html'))
+  }
+
 })
 
 chrome.runtime.onInstalled.addListener(function (details) {

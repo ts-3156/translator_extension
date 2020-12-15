@@ -7,108 +7,192 @@
   <script type="text/javascript" src="jquery.min.js"></script>
   <script type="text/javascript" src="bootstrap.min.js"></script>
   <script type="text/javascript" src="options_script.js"></script>
+  <style>
+      #main-content {
+          width: 600px;
+          margin: 0 auto;
+          display: none;
+      }
+
+      #brand-header {
+          color: white;
+          background-color: #292929;
+          height: 100px;
+      }
+
+      #brand-logo {
+          vertical-align: text-bottom;
+      }
+
+      #brand-name {
+          font-size: 24px;
+      }
+
+      .menu-title {
+          font-size: 20px;
+      }
+
+      .plan-title {
+          font-size: 22px;
+      }
+
+      .text-green {
+          color: green;
+      }
+  </style>
 </head>
 <body>
 
-<div class="border mt-5" style="width: 600px; margin: 0 auto;">
-  <div class="d-flex justify-content-center align-items-center"
-       style="color: white; background-color: #292929; height: 100px;">
+<div id="main-content" class="border my-5">
+  <div id="brand-header" class="d-flex justify-content-center align-items-center">
     <div>
-      <img style="vertical-align: text-bottom;" class="mr-2" src="icon128.png" width="24" height="24">
-      <span style="font-size: 24px;">Deep Translator</span>
+      <img id="brand-logo" class="mr-2" src="icon128.png" width="24" height="24">
+      <span id="brand-name">Deep Translator</span>
     </div>
   </div>
 
   <div class="m-3">
-    <form>
-      <div class="form-group mt-3 my-5">
-        <label for="language-select">Language</label>
-        <select class="form-control" id="language-select">
+    <div class="form-group mt-3 my-5">
+      <div id="language-title" class="menu-title mb-2">Language</div>
+      <select class="form-control" id="language-select">
+        <option value="en">English</option>
+        <option value="ja">Japanese</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-3 my-5">
+      <div id="account-title" class="menu-title mb-2">Account</div>
+      <input id="profile-email" class="form-control" type="text" placeholder="" disabled>
+      <small class="form-text text-muted"><a id="sign-out" href="#">Sign out</a></small>
+    </div>
+
+    <div class="form-group mt-3 my-5">
+      <div id="license-key-title" class="menu-title mb-2">License key</div>
+      <input id="license-key" class="form-control" type="text" placeholder="lk_xxxxx">
+      <small id="license-key-help" class="form-text text-muted">If 'yes' is selected, your translation
+        history will be saved on your browser.</small>
+    </div>
+
+    <div><a id="privacy-policy-link" href="#">Privacy policy</a></div>
+    <div><a id="terms-of-service-link" href="#">Terms of service</a></div>
+
+    <hr>
+
+    <div class="form-group mt-3 my-5">
+      <div id="plan-title" class="menu-title mb-2">Plan</div>
+      <div class="mb-3">
+        <div id="plan-description" class="mb-5">You are using the free version of Deep Translator.</div>
+
+        <div class="d-flex justify-content-between">
+          <div class="mx-3 w-100">
+            <div class="plan-title mb-2">Free</div>
+            <div class="mb-5">For hobbyists</div>
+            <div id="free-price-amount" class="plan-title mb-2">$0</div>
+            <div id="free-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
+
+            <div id="free-features" class="mb-3">Top features:</div>
+            <div class="mb-5">
+              <div><span class="text-green">&#10003;</span> <span id="free-characters-per-translation" class="small">250 characters per translation</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="free-characters-per-month" class="small">10,000 characters per month</span></div>
+            </div>
+          </div>
+
+          <div class="border-left"></div>
+
+          <div class="mx-3 w-100">
+            <div class="plan-title mb-2">Pro</div>
+            <div class="mb-5">For business</div>
+            <div id="pro-price-amount" class="plan-title mb-2">$5</div>
+            <div id="pro-price-description" class="text-muted small mb-5">per person, per month, when billed monthly</div>
+
+            <div id="pro-features" class="mb-3">Top features:</div>
+            <div class="mb-5">
+              <div><span class="text-green">&#10003;</span> <span id="pro-characters-per-translation" class="small">Unlimited characters per translation</span></div>
+              <div><span class="text-green">&#10003;</span> <span id="pro-characters-per-month" class="small">Unlimited characters per month</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="mx-3 w-100">
+            <button type="button" id="selected-button" class="btn btn-primary btn-block" disabled>Selected</button>
+          </div>
+
+          <div class="border-left"></div>
+
+          <div class="mx-3 w-100">
+            <button type="button" id="upgrade-button" class="btn btn-primary btn-block">Upgrade</button>
+            <button type="button" id="learn-more-button" class="btn btn-link btn-block">Learn more</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="d-flex mt-3 my-5">
+      <div class="form-group flex-fill">
+        <div>
+          <div id="source-language-title" class="menu-title mb-2 d-inline-block">Source language</div>
+          <span id="source-language-status" class="text-primary text-center m-1"></span>
+        </div>
+        <select class="form-control" id="source-language-select">
+          <option value="automatic">Automatic</option>
+          <option value="de">German</option>
           <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="es">Spanish</option>
+          <option value="it">Italian</option>
           <option value="ja">Japanese</option>
+          <option value="nl">Dutch</option>
+          <option value="pl">Polish</option>
+          <option value="pt">Portuguese</option>
+          <option value="pt-br">Brazilian Portuguese</option>
+          <option value="pt-pt">European Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="ch">Chinese</option>
         </select>
       </div>
 
-      <div class="form-group mt-3 my-5">
-        <button type="button" id="website" class="btn btn-outline-primary">Open website</button>
-      </div>
+      <div class="align-self-center p-3">&#8594;</div>
 
-      <div class="form-group mt-3 my-5">
-        <button type="button" id="sign-in" class="btn btn-primary">Sign in with Google</button>
-        <span id="profile-email"></span>
-        <img id="profile-picture" src="" width="24" height="24" style="display: none;">
-      </div>
-
-      <div class="d-flex mt-3 my-5">
-        <div class="form-group flex-fill">
-          <label for="source-language-select">Source language</label>
-          <select class="form-control" id="source-language-select">
-            <option value="automatic">Automatic</option>
-            <option value="de">German</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="it">Italian</option>
-            <option value="ja">Japanese</option>
-            <option value="nl">Dutch</option>
-            <option value="pl">Polish</option>
-            <option value="pt">Portuguese</option>
-            <option value="pt-br">Brazilian Portuguese</option>
-            <option value="pt-pt">European Portuguese</option>
-            <option value="ru">Russian</option>
-            <option value="ch">Chinese</option>
-          </select>
+      <div class="form-group flex-fill">
+        <div>
+          <div id="target-language-title" class="menu-title mb-2 d-inline-block">Target language</div>
+          <span id="target-language-status" class="text-primary text-center m-1"></span>
         </div>
-
-        <div class="align-self-center p-3">&#8594;</div>
-
-        <div class="form-group flex-fill">
-          <label for="target-language-select">Target language</label>
-          <select class="form-control" id="target-language-select">
-            <option value="de">German</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="it">Italian</option>
-            <option value="ja">Japanese</option>
-            <option value="nl">Dutch</option>
-            <option value="pl">Polish</option>
-            <option value="pt">Portuguese</option>
-            <option value="pt-br">Brazilian Portuguese</option>
-            <option value="pt-pt">European Portuguese</option>
-            <option value="ru">Russian</option>
-            <option value="ch">Chinese</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group mt-3 my-5">
-        <label for="save-histories-select">Save histories</label>
-        <select class="form-control" id="save-histories-select">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
+        <select class="form-control" id="target-language-select">
+          <option value="de">German</option>
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="es">Spanish</option>
+          <option value="it">Italian</option>
+          <option value="ja">Japanese</option>
+          <option value="nl">Dutch</option>
+          <option value="pl">Polish</option>
+          <option value="pt">Portuguese</option>
+          <option value="pt-br">Brazilian Portuguese</option>
+          <option value="pt-pt">European Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="ch">Chinese</option>
         </select>
-        <small id="save-histories-help" class="form-text text-muted">If 'yes' is selected, your translation
-          history will be saved on your browser.</small>
       </div>
+    </div>
 
-      <div class="form-group mt-3 my-5" style="display: none;">
-        <label for="send-anonymous-data-select">Send your anonymous usage data</label>
-        <select class="form-control" id="send-anonymous-data-select">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-        <small id="send-anonymous-data-help" class="form-text text-muted">If 'yes' is selected, only the number of
-          translation events will be sent to Google analytics.</small>
-      </div>
+    <div class="form-group mt-3 my-5">
+      <div id="save-histories-title" class="menu-title mb-2">Save histories</div>
+      <select class="form-control" id="save-histories-select">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+      <small id="save-histories-help" class="form-text text-muted">If 'yes' is selected, your translation
+        history will be saved on your browser.</small>
+    </div>
 
-      <div id="status" class="text-primary text-center m-1"></div>
-
-      <div class="d-flex justify-content-between">
-        <button id="save" type="submit" class="btn btn-primary">Save</button>
-        <button id="restore" type="submit" class="btn btn-outline-secondary">Restore Defaults</button>
-      </div>
-    </form>
+    <div class="text-right">
+      <button id="restore" type="submit" class="btn btn-outline-secondary">Restore Defaults</button>
+    </div>
   </div>
 </div>
 </body>

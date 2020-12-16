@@ -6,27 +6,30 @@ function updateUILabels() {
   const i18n = new I18n(pref.language())
 
   $('#language-title').text(i18n.t('options', 'language'))
-  $('#account-title').text(i18n.t('options', 'account'))
-  $('#sign-out').text(i18n.t('options', 'sign_out'))
   $('#license-key-title').text(i18n.t('options', 'license_key'))
   $('#license-key-help').text(i18n.t('options', 'license_key_help'))
+  $('#support-link').text(i18n.t('options', 'support'))
   $('#privacy-policy-link').text(i18n.t('options', 'privacy_policy'))
   $('#terms-of-service-link').text(i18n.t('options', 'terms_of_service'))
   $('#plan-title').text(i18n.t('options', 'plan_title'))
   $('#plan-description').text(i18n.t('options', 'plan_description'))
+
   $('#free-price-amount').text(i18n.t('options', 'free_price_amount'))
   $('#free-price-description').text(i18n.t('options', 'free_price_description'))
   $('#free-features').text(i18n.t('options', 'free_features'))
   $('#free-characters-per-translation').text(i18n.t('options', 'free_characters_per_translation'))
   $('#free-characters-per-month').text(i18n.t('options', 'free_characters_per_month'))
+  $('#free-button').text(i18n.t('options', 'free_button'))
+  $('#free-link').text(i18n.t('options', 'free_link'))
+
   $('#pro-price-amount').text(i18n.t('options', 'pro_price_amount'))
   $('#pro-price-description').text(i18n.t('options', 'pro_price_description'))
   $('#pro-features').text(i18n.t('options', 'free_features'))
   $('#pro-characters-per-translation').text(i18n.t('options', 'pro_characters_per_translation'))
   $('#pro-characters-per-month').text(i18n.t('options', 'pro_characters_per_month'))
-  $('#selected-button').text(i18n.t('options', 'selected'))
-  $('#upgrade-button').text(i18n.t('options', 'upgrade'))
-  $('#learn-more-button').text(i18n.t('options', 'learn_more'))
+  $('#pro-button').text(i18n.t('options', 'pro_button'))
+  $('#pro-link').text(i18n.t('options', 'pro_link'))
+
   $('#source-language-title').text(i18n.t('options', 'source_language'))
   $('#target-language-title').text(i18n.t('options', 'target_language'))
   $('#save-histories-title').text(i18n.t('options', 'save_histories'))
@@ -102,36 +105,19 @@ function saveTargetLanguage() {
   pref.targetLanguage(getValue('target-language-select'))
 }
 
-function saveOptions() {
-  const pref = new Preferences()
-  pref.language(getValue('language-select'))
-  pref.sourceLanguage(getValue('source-language-select'))
-  pref.targetLanguage(getValue('target-language-select'))
-  pref.saveHistories(getValue('save-histories-select'))
-  pref.sendAnonymousData(getValue('send-anonymous-data-select'))
-}
-
 function updateUI(callback) {
   setValues()
   updateUILabels()
 
-  getProfile(function (data) {
-    updateProfile(data.email)
-    $('#sign-out').show()
+  getProfile(function () {
     if (callback) {
       callback()
     }
   }, function () {
-    updateProfile('Visitor')
-    $('#sign-out').hide()
     if (callback) {
       callback()
     }
   })
-}
-
-function updateProfile(email) {
-  $('#profile-email').val(email)
 }
 
 function getProfile(done, fail) {
@@ -170,6 +156,26 @@ $(function () {
   $('#language-select').on('change', function () {
     saveLanguage()
     updateUI()
+  })
+
+  $('#free-button').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=free_button'
+    return false
+  })
+
+  $('#free-link').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=free_link'
+    return false
+  })
+
+  $('#pro-button').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=pro_button'
+    return false
+  })
+
+  $('#pro-link').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=pro_link'
+    return false
   })
 
   $('#source-language-select').on('change', function () {

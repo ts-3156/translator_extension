@@ -188,8 +188,8 @@ function formatTranslation(text, translation) {
       <div class="font-18 mb-3">${translation.text}</div>
       <div class="text-muted small">${i18n.t(translation.targetLanguage)} : </div>
       <div class="font-18 mb-3">${translation.translation}</div>
-      <a id="go-to-options" class="text-muted small" href="#">${i18n.t('extension_options')}</a>
-      <a id="TODO" class="text-muted small btn-web" href="#">${i18n.t('extension_website')}</a>
+      <a id="go-to-options" class="text-muted small" href="#" onclick="goToOptions()">${i18n.t('extension_options')}</a>
+      <a id="TODO" class="text-muted small btn-web" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>
   `
 }

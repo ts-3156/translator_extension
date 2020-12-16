@@ -61,31 +61,32 @@ function updateUILabels() {
     $opt.text(i18n.t('options', $opt.attr('value')))
   })
 
-  $('#send-anonymous-data-select option').each(function () {
-    const $opt = $(this)
-    $opt.text(i18n.t('options', $opt.attr('value')))
-  })
-
   $('#save-histories-help').text(i18n.t('options', 'save_histories_help'))
 }
 
 function setValues() {
   const pref = new Preferences()
   setValue('language-select', pref.language())
+  setValue('license-key-input', pref.licenseKey())
   setValue('source-language-select', pref.sourceLanguage())
   setValue('target-language-select', pref.targetLanguage())
   setValue('save-histories-select', pref.saveHistories())
-  setValue('send-anonymous-data-select', pref.sendAnonymousData())
 }
 
 function setValue(id, value) {
   const $elem = $('#' + id)
-  $elem.find('option[value="' + value + '"]').prop('selected', true)
+  if ($elem.get(0).tagName === 'SELECT') {
+    $elem.find('option[value="' + value + '"]').prop('selected', true)
+  } else if ($elem.get(0).tagName === 'INPUT') {
+    $elem.val(value)
+  }
 }
 
 function getValue(id) {
   const $elem = $('#' + id)
   if ($elem.get(0).tagName === 'SELECT') {
+    return $elem.val()
+  } else if ($elem.get(0).tagName === 'INPUT') {
     return $elem.val()
   }
 }
@@ -93,6 +94,11 @@ function getValue(id) {
 function saveLanguage() {
   const pref = new Preferences()
   pref.language(getValue('language-select'))
+}
+
+function saveLicenseKey() {
+  const pref = new Preferences()
+  pref.licenseKey(getValue('license-key-input'))
 }
 
 function saveSourceLanguage() {
@@ -156,6 +162,11 @@ $(function () {
   $('#language-select').on('change', function () {
     saveLanguage()
     updateUI()
+  })
+
+  $('#license-key-input').on('blur', function () {
+    saveLicenseKey()
+    $('#license-key-status').text('Saved').fadeIn('slow').delay(1000).fadeOut()
   })
 
   $('#free-button').on('click', function () {

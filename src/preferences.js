@@ -2,7 +2,6 @@ const language = ['en', 'ja']
 const sourceLanguage = ['automatic', 'de', 'en', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'ch']
 const targetLanguage = ['de', 'en', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'ch']
 const saveHistories = ['yes', 'no']
-const sendAnonymousData = ['yes', 'no']
 
 export class Preferences {
   constructor() {
@@ -16,10 +15,10 @@ export class Preferences {
   toJSON() {
     return JSON.stringify({
       language: this.language(),
+      licenseKey: this.licenseKey(),
       sourceLanguage: this.sourceLanguage(),
       targetLanguage: this.targetLanguage(),
-      saveHistories: this.saveHistories(),
-      sendAnonymousData: this.sendAnonymousData()
+      saveHistories: this.saveHistories()
     })
   }
 
@@ -33,7 +32,11 @@ export class Preferences {
 
   accessValue(key, inputValue, defaultValue, defaultValues) {
     if (inputValue) {
-      if (defaultValues.includes(inputValue)) {
+      if (defaultValues) {
+        if (defaultValues.includes(inputValue)) {
+          this.setValue(key, inputValue)
+        }
+      } else {
         this.setValue(key, inputValue)
       }
     } else {
@@ -43,6 +46,10 @@ export class Preferences {
 
   language(value) {
     return this.accessValue('language', value, 'en', language)
+  }
+
+  licenseKey(value) {
+    return this.accessValue('licenseKey', value, null, null)
   }
 
   sourceLanguage(value) {
@@ -55,9 +62,5 @@ export class Preferences {
 
   saveHistories(value) {
     return this.accessValue('saveHistories', value, 'yes', saveHistories)
-  }
-
-  sendAnonymousData(value) {
-    return this.accessValue('sendAnonymousData', value, 'yes', sendAnonymousData)
   }
 }

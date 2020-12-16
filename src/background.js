@@ -4,28 +4,24 @@ function translate(word, sendResponse) {
   const pref = new Preferences()
 
   const data = {
-    auth_key: process.env.TRANSLATION_AUTH_KEY,
+    license_key: pref.licenseKey(),
     text: word,
-    tag_handling: 0,
+    source_lang: pref.sourceLanguage(),
     target_lang: pref.targetLanguage()
   }
 
-  if (pref.sourceLanguage() !== 'automatic') {
-    data['source_lang'] = pref.sourceLanguage()
-  }
-
   sendData(data, function (res) {
-    const translation = onTranslationResponse(res.translations[0], word)
+    const translation = onTranslationResponse(res, word)
     sendResponse(translation)
   })
 }
 
 function sendData(data, callback) {
-  const url = 'https://api.deepl.com/v2/translate'
+  const url = process.env.TRANSLATION_API_URL
 
   const xhr = new XMLHttpRequest()
   xhr.open('POST', url)
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+  xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.responseType = 'json'
 
   xhr.addEventListener('load', function () {
@@ -36,28 +32,18 @@ function sendData(data, callback) {
     console.error('translation failed', xhr)
   })
 
-  xhr.send(encodeData(data))
+  xhr.send(JSON.stringify(data))
 }
 
-function encodeData(data) {
-  const urlEncodedDataPairs = []
-
-  Object.keys(data).forEach(function (key) {
-    urlEncodedDataPairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-  })
-
-  return urlEncodedDataPairs.join('&').replace(/%20/g, '+')
-}
-
-function onTranslationResponse(translation, word) {
+function onTranslationResponse(res, word) {
   const pref = new Preferences()
   return {
     text: word,
-    translation: translation.text,
+    translation: res.response_text,
     language: pref.language(),
     sourceLanguage: pref.sourceLanguage(),
     targetLanguage: pref.targetLanguage(),
-    detectedSourceLanguage: translation.detected_source_language
+    detectedSourceLanguage: res.detected_source_language
   }
 }
 

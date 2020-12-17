@@ -13,10 +13,15 @@ function translate(word, sendResponse) {
   sendData(data, function (res) {
     const translation = onTranslationResponse(res, word)
     sendResponse(translation)
+  }, function (xhr) {
+    console.error('translation failed', xhr.response)
+    const res = {error: true}
+    const translation = onTranslationResponse(res, word)
+    sendResponse(translation)
   })
 }
 
-function sendData(data, callback) {
+function sendData(data, done, fail) {
   const url = process.env.TRANSLATION_API_URL + '/api/translations'
 
   const xhr = new XMLHttpRequest()
@@ -24,13 +29,19 @@ function sendData(data, callback) {
   xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.responseType = 'json'
 
-  xhr.addEventListener('load', function () {
-    callback(xhr.response)
-  })
+  xhr.onload = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        done(xhr.response)
+      } else {
+        fail(xhr)
+      }
+    }
+  }
 
-  xhr.addEventListener('error', function () {
-    console.error('translation failed', xhr)
-  })
+  xhr.onerror = function (e) {
+    fail(xhr)
+  }
 
   xhr.send(JSON.stringify(data))
 }
@@ -38,6 +49,7 @@ function sendData(data, callback) {
 function onTranslationResponse(res, word) {
   const pref = new Preferences()
   return {
+    error: res.error,
     text: word,
     translation: res.response_text,
     language: pref.language(),

@@ -18,6 +18,9 @@ const values = {
     'pt-pt': 'European Portuguese',
     ru: 'Russian',
     zh: 'Chinese',
+    input_text: 'Input text',
+    error_text: 'Error message',
+    error_message: 'Sorry, an error has occurred. <br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.',
     options: {
       language: 'UI language',
       account: 'Account',
@@ -79,6 +82,9 @@ const values = {
     'pt-pt': 'イベリアポルトガル語',
     ru: 'ロシア語',
     zh: '中国語',
+    input_text: '入力したテキスト',
+    error_text: 'エラーメッセージ',
+    error_message: '申し訳ありません、エラーが起きました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。',
     options: {
       language: 'UIの言語',
       account: 'アカウント',

@@ -142,8 +142,23 @@ function updateUI(callback) {
 }
 
 function testLicenseKey(done, fail) {
+  const pref = new Preferences()
+
+  if (!pref.licenseKey()) {
+    fail()
+    return
+  }
+
+  if (pref.licenseKey().match(/^lk_trial/)) {
+    if (pref.licenseKey() === pref.originalTrialKey()) {
+      done()
+    } else {
+      fail()
+    }
+    return
+  }
+
   getProfile(function (data) {
-    const pref = new Preferences()
     const init = {
       method: 'GET',
       async: true,

@@ -164,6 +164,11 @@ function processEvent(e) {
 
 function translate(e, word) {
   chrome.runtime.sendMessage({handler: 'translate', word: word}, function (response) {
+    if (response.error) {
+      showPopup(e, formatError(word, response))
+      return
+    }
+
     if (!response.translation) {
       console.log('skip empty translation')
       return
@@ -173,21 +178,34 @@ function translate(e, word) {
   })
 }
 
-function formatTranslation(text, translation) {
+function formatTranslation(text, response) {
   let sourceLanguage
-  if (translation.sourceLanguage === 'automatic') {
-    sourceLanguage = i18n.t('automatic') + ' (' + i18n.t(translation.detectedSourceLanguage.toLowerCase()) + ')'
+  if (response.sourceLanguage === 'automatic') {
+    sourceLanguage = i18n.t('automatic') + ' (' + i18n.t(response.detectedSourceLanguage.toLowerCase()) + ')'
   } else {
-    sourceLanguage = i18n.t(translation.sourceLanguage)
+    sourceLanguage = i18n.t(response.sourceLanguage)
   }
 
   return `
     <div style="position: relative;">
       <span class="text-muted btn-close" aria-hidden="true">&times;</span>
       <div class="text-muted small">${sourceLanguage} : </div>
-      <div class="font-18 mb-3">${translation.text}</div>
-      <div class="text-muted small">${i18n.t(translation.targetLanguage)} : </div>
-      <div class="font-18 mb-3">${translation.translation}</div>
+      <div class="font-18 mb-3">${response.text}</div>
+      <div class="text-muted small">${i18n.t(response.targetLanguage)} : </div>
+      <div class="font-18 mb-3">${response.translation}</div>
+      <a id="go-to-options" class="text-muted small" href="#" onclick="goToOptions()">${i18n.t('extension_options')}</a>
+      <a id="TODO" class="text-muted small btn-web" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
+    </div>
+  `
+}
+
+function formatError() {
+
+  return `
+    <div style="position: relative;">
+      <span class="text-muted btn-close" aria-hidden="true">&times;</span>
+      <div class="text-muted small">${i18n.t('error_text')} : </div>
+      <div class="font-18 mb-3">${i18n.t('error_message')}</div>
       <a id="go-to-options" class="text-muted small" href="#" onclick="goToOptions()">${i18n.t('extension_options')}</a>
       <a id="TODO" class="text-muted small btn-web" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>

@@ -98,7 +98,7 @@ function setTagValues() {
 function setValue(id, value) {
   const $elem = $('#' + id)
   if ($elem.get(0).tagName === 'SELECT') {
-    $elem.find('option[value="' + value + '"]').prop('selected', true)
+    $elem.find('option[value="' + value + '"]').prop('selected', true).attr('selected', true)
   } else if ($elem.get(0).tagName === 'INPUT') {
     $elem.val(value)
   }

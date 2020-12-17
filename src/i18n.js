@@ -1,5 +1,6 @@
 const values = {
   en: {
+    translate: '<span class="clickable">Translate into</span> %{selector}',
     automatic: 'Automatic',
     extension_options: 'Extension Options',
     extension_website: 'Open website',
@@ -64,6 +65,7 @@ const values = {
     }
   },
   ja: {
+    translate: '%{selector} <span class="clickable">に翻訳する</span>',
     automatic: '自動検出',
     extension_options: '拡張機能オプション',
     extension_website: 'Webサイトを開く',

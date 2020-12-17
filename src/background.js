@@ -1,7 +1,10 @@
 import {Preferences} from './preferences'
 
-function translate(word, sendResponse) {
+function translate(word, targetLanguage, sendResponse) {
   const pref = new Preferences()
+  if (targetLanguage) {
+    pref.targetLanguage(targetLanguage)
+  }
 
   const data = {
     license_key: pref.licenseKey(),
@@ -63,7 +66,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.handler === 'get_prefs') {
     sendResponse({pref: new Preferences().toJSON()})
   } else if (request.handler === 'translate') {
-    translate(request.word, sendResponse)
+    translate(request.word, request.targetLanguage, sendResponse)
     return true
   } else {
     console.error('Unknown handler')

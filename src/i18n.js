@@ -28,8 +28,8 @@ const values = {
       sign_out: 'Sign out',
       license_key: 'License key',
       license_key_description_unknown: 'Please enter a valid license key. You can get a license for the free version by simply <a class="sign-in" href="#">logging in</a>.',
-      license_key_description_free: 'You have entered your license key for <span class="text-info">the free version</span>. If you want to translation more sentences, please use the professional version.',
-      license_key_description_pro: 'You have entered your license key for <span class="text-info">the professional version</span>.',
+      license_key_description_free: 'You have entered your license key for <span class="text-primary">the free version</span>. If you want to translation more sentences, please use the professional version.',
+      license_key_description_pro: 'You have entered your license key for <span class="text-primary">the professional version</span>.',
       license_key_description_trial: 'You have entered your license key for the trial version. This key can only be used <b>immediately after installation</b>. Please <a class="sign-in" href="#">sign in</a> to get the license key for the free version.',
       license_key_help: 'To get a license key for the free version, please <a class="sign-in" href="#">sign in</a>.',
       pricing_plans: 'Pricing plans',
@@ -47,6 +47,9 @@ const values = {
       sign_in: 'Sign in with Google',
       save: 'Save',
       restore: 'Restore Defaults',
+      test_connection_succeeded: 'Test connection succeeded',
+      test_connection_failed: 'Test connection failed',
+      invalid_key_format: 'Invalid key format'
     }
   },
   ja: {
@@ -78,8 +81,8 @@ const values = {
       sign_out: 'ログアウト',
       license_key: 'ライセンス キー',
       license_key_description_unknown: '有効なライセンス キーを入力してください。無料版のライセンスは<a class="sign-in" href="#">ログイン</a>するだけで取得できます。',
-      license_key_description_free: '<span class="text-info">無料版</span> のライセンス キーが入力されています。もっとたくさん翻訳したい場合は、プロフェッショナル版をご利用ください。',
-      license_key_description_pro: '<span class="text-info">プロフェッショナル版</span> のライセンス キーが入力されています。',
+      license_key_description_free: '<span class="text-primary">無料版</span> のライセンス キーが入力されています。もっとたくさん翻訳したい場合は、プロフェッショナル版をご利用ください。',
+      license_key_description_pro: '<span class="text-primary">プロフェッショナル版</span> のライセンス キーが入力されています。',
       license_key_description_trial: 'トライアル版 のライセンス キーが入力されています。このキーは<b>インストール直後のみ</b>使えます。<a class="sign-in" href="#">ログイン</a>して無料版のキーを取得してください。',
       license_key_help: '無料版のライセンス キーを取得するには、<a class="sign-in" href="#">ログイン</a>してください。',
       pricing_plans: '料金プラン',
@@ -96,6 +99,9 @@ const values = {
       sign_in: 'Googleでログイン',
       save: '変更を保存する',
       restore: 'デフォルトを復元する',
+      test_connection_succeeded: '有効なキーが入力されました',
+      test_connection_failed: '無効なキーが入力されました',
+      invalid_key_format: '無効なキーの形式です'
     }
   }
 }

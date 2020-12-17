@@ -101,8 +101,14 @@ function saveLanguage() {
 }
 
 function saveLicenseKey() {
-  const pref = new Preferences()
-  pref.licenseKey(getValue('license-key-input'))
+  const value = getValue('license-key-input')
+  if (value && (value.match(/^lk_(trial|free|pro)_/))) {
+    const pref = new Preferences()
+    pref.licenseKey(value)
+    return true
+  } else {
+    return false
+  }
 }
 
 function saveSourceLanguage() {
@@ -141,26 +147,30 @@ function testLicenseKey(done, fail) {
   }
 
   getProfile(function (data) {
-    const init = {
-      method: 'GET',
-      async: true,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      'contentType': 'json'
-    }
-    const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?id=' + data.id + '&key=' + pref.licenseKey()
-    fetch(url, init)
-      .then(function (res) {
-        if (res.status === 200) {
-          res.json().then(done)
-        } else {
-          if (fail) {
-            fail()
-          }
-        }
-      })
+    getLicenseKeyType(data.id, pref.licenseKey(), done, fail)
   }, fail)
+}
+
+function getLicenseKeyType(id, key, done, fail) {
+  const init = {
+    method: 'GET',
+    async: true,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    'contentType': 'json'
+  }
+  const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?id=' + id + '&key=' + key
+  fetch(url, init)
+    .then(function (res) {
+      if (res.status === 200) {
+        res.json().then(done)
+      } else {
+        if (fail) {
+          fail()
+        }
+      }
+    })
 }
 
 function getProfile(done, fail) {
@@ -221,12 +231,18 @@ $(function () {
   })
 
   $('#license-key-input').on('blur', function () {
-    saveLicenseKey()
-    testLicenseKey(function () {
-      showStatus('license-key-status', {category: 'primary', text: 'test connection succeeded'})
-    }, function () {
-      showStatus('license-key-status', {category: 'danger', text: 'test connection failed'})
-    })
+    const pref = new Preferences()
+    const i18n = new I18n(pref.language())
+
+    if (saveLicenseKey()) {
+      testLicenseKey(function () {
+        showStatus('license-key-status', {category: 'primary', text: i18n.t('options.test_connection_succeeded')})
+      }, function () {
+        showStatus('license-key-status', {category: 'danger', text: i18n.t('options.test_connection_failed')})
+      })
+    } else {
+      showStatus('license-key-status', {category: 'danger', text: i18n.t('options.invalid_key_format')})
+    }
   })
 
   $('#source-language-select').on('change', function () {

@@ -22,6 +22,27 @@ function licenseKeyDescription() {
   return text
 }
 
+function licenseKeyHelp() {
+  const pref = new Preferences()
+  const i18n = new I18n(pref.language())
+  const key = pref.licenseKey()
+  let text
+
+  if (!key) {
+    text = i18n.t('options.license_key_help')
+  } else if (key.match(/^lk_pro_/)) {
+    text = ''
+  } else if (key.match(/^lk_free_/)) {
+    text = i18n.t('options.license_key_help_free')
+  } else if (key.match(/^lk_trial_/)) {
+    text = i18n.t('options.license_key_help')
+  } else {
+    text = i18n.t('options.license_key_help')
+  }
+
+  return text
+}
+
 function updateUILabels() {
   const pref = new Preferences()
   const i18n = new I18n(pref.language())
@@ -29,7 +50,7 @@ function updateUILabels() {
   $('#language-title').text(i18n.t('options.language'))
   $('#license-key-title').text(i18n.t('options.license_key'))
   $('#license-key-description').html(licenseKeyDescription())
-  $('#license-key-help').html(i18n.t('options.license_key_help'))
+  $('#license-key-help').html(licenseKeyHelp())
   $('#pricing-plans-link').text(i18n.t('options.pricing_plans'))
   $('#support-link').text(i18n.t('options.support_account'))
   $('#privacy-policy-link').text(i18n.t('options.privacy_policy'))
@@ -236,6 +257,8 @@ $(function () {
 
     if (saveLicenseKey()) {
       testLicenseKey(function () {
+        $('#license-key-description').html(licenseKeyDescription())
+        $('#license-key-help').html(licenseKeyHelp())
         showStatus('license-key-status', {category: 'primary', text: i18n.t('options.test_connection_succeeded')})
       }, function () {
         showStatus('license-key-status', {category: 'danger', text: i18n.t('options.test_connection_failed')})

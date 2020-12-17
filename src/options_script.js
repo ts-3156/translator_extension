@@ -30,28 +30,10 @@ function updateUILabels() {
   $('#license-key-title').text(i18n.t('options.license_key'))
   $('#license-key-description').html(licenseKeyDescription())
   $('#license-key-help').html(i18n.t('options.license_key_help'))
-  $('#support-link').text(i18n.t('options.support'))
+  $('#pricing-plans-link').text(i18n.t('options.pricing_plans'))
+  $('#support-link').text(i18n.t('options.support_account'))
   $('#privacy-policy-link').text(i18n.t('options.privacy_policy'))
   $('#terms-of-service-link').text(i18n.t('options.terms_of_service'))
-  $('#plan-title').text(i18n.t('options.plan_title'))
-  $('#plan-description').text(i18n.t('options.plan_description'))
-
-  $('#free-price-amount').text(i18n.t('options.free_price_amount'))
-  $('#free-price-description').text(i18n.t('options.free_price_description'))
-  $('#free-features').text(i18n.t('options.free_features'))
-  $('#free-characters-per-translation').text(i18n.t('options.free_characters_per_translation'))
-  $('#free-characters-per-month').text(i18n.t('options.free_characters_per_month'))
-  $('#free-button').text(i18n.t('options.free_button'))
-  $('#free-link').text(i18n.t('options.free_link'))
-
-  $('#pro-price-amount').text(i18n.t('options.pro_price_amount'))
-  $('#pro-price-description').text(i18n.t('options.pro_price_description'))
-  $('#pro-features').text(i18n.t('options.free_features'))
-  $('#pro-characters-per-translation').text(i18n.t('options.pro_characters_per_translation'))
-  $('#pro-characters-per-month').text(i18n.t('options.pro_characters_per_month'))
-  $('#pro-button').text(i18n.t('options.pro_button'))
-  $('#pro-link').text(i18n.t('options.pro_link'))
-
   $('#source-language-title').text(i18n.t('options.source_language'))
   $('#target-language-title').text(i18n.t('options.target_language'))
   $('#save-histories-title').text(i18n.t('options.save_histories'))
@@ -247,26 +229,6 @@ $(function () {
     })
   })
 
-  $('#free-button').on('click', function () {
-    window.location.href = process.env.WEBSITE_URL + '?via=free_button'
-    return false
-  })
-
-  $('#free-link').on('click', function () {
-    window.location.href = process.env.WEBSITE_URL + '?via=free_link'
-    return false
-  })
-
-  $('#pro-button').on('click', function () {
-    window.location.href = process.env.WEBSITE_URL + '?via=pro_button'
-    return false
-  })
-
-  $('#pro-link').on('click', function () {
-    window.location.href = process.env.WEBSITE_URL + '?via=pro_link'
-    return false
-  })
-
   $('#source-language-select').on('change', function () {
     saveSourceLanguage()
     showStatus('source-language-status', {category: 'primary', text: 'Saved'})
@@ -280,11 +242,31 @@ $(function () {
   $('#restore').on('click', function () {
     new Preferences().clear()
     updateUI()
-    showStatus('status', {category: 'primary', text: 'Restored'})
+    showStatus('restore-status', {category: 'primary', text: 'Restored'})
     return false
   })
 
   $(document).on('click', '.sign-in', function () {
     return signIn()
+  })
+
+  $('#pricing-plans-link').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=pricing_plans'
+    return false
+  })
+
+  $('#support-link').on('click', function () {
+    window.location.href = 'https://twitter.com/deeptranslator'
+    return false
+  })
+
+  $('#privacy-policy-link').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=privacy_policy'
+    return false
+  })
+
+  $('#terms-of-service-link').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=terms_of_service'
+    return false
   })
 })

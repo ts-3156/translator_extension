@@ -90,13 +90,8 @@ function showPopup(e, content) {
     $elem.css({position: 'absolute', top: pos.y, left: pos.x})
   }, 0)
 
-  $elem.find('#popup-translate-inner').on('click', function (e) {
-    if (e.target.id === 'go-to-options') {
-      goToOptions()
-    }
-    if ($(e.target).hasClass('btn-close')) {
-      removePopup()
-    }
+  $elem.find('#popup-translate-inner .btn-close').on('click', function (e) {
+    removePopup()
     return false
   })
 }
@@ -170,6 +165,10 @@ function processEvent(e) {
     return
   }
 
+  if ($(e.target).parents('#popup-translate-inner').length !== 0) {
+    return
+  }
+
   if (/INPUT|TEXTAREA/.test(hit_elem.nodeName) || hit_elem.isContentEditable
     || $(hit_elem).parents().filter(function () {
       return this.isContentEditable
@@ -240,8 +239,8 @@ function formatTranslation(text, response) {
       <div class="font-18 mb-3">${response.text}</div>
       <div class="text-muted small">${i18n.t(response.targetLanguage)} : </div>
       <div class="font-18 mb-3">${response.translation}</div>
-      <a id="go-to-options" class="text-muted small" href="#" onclick="goToOptions()">${i18n.t('extension_options')}</a>
-      <a id="TODO" class="text-muted small btn-web" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
+      <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
+      <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>
   `
 }
@@ -252,8 +251,8 @@ function formatError() {
       <span class="text-muted btn-close" aria-hidden="true">&times;</span>
       <div class="text-muted small">${i18n.t('error_text')} : </div>
       <div class="font-18 mb-3">${i18n.t('error_message')}</div>
-      <a id="go-to-options" class="text-muted small" href="#" onclick="goToOptions()">${i18n.t('extension_options')}</a>
-      <a id="TODO" class="text-muted small btn-web" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
+      <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
+      <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>
   `
 }
@@ -266,7 +265,13 @@ function goToOptions() {
   }
 }
 
-$(document).on('click', '#go-to-options', goToOptions)
+function goToWebsite() {
+  window.location.href = process.env.WEBSITE_URL + '?via=popup'
+  return false
+}
+
+$(document).on('click', '.go-to-website', goToWebsite)
+$(document).on('click', '.go-to-options', goToOptions)
 
 $(document).click(function (e) {
   processEvent(e)

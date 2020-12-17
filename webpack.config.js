@@ -49,6 +49,8 @@ module.exports = {
           }
         },
         'assets/icon128.png',
+        'assets/how_to_use_01.png',
+        'assets/how_to_use_02.png',
         'assets/options.html',
         'assets/popup.html',
         'assets/button.html',

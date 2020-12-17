@@ -24,6 +24,10 @@ const values = {
     error_message: 'Sorry, an error has occurred. <br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.',
     options: {
       language: 'UI language',
+      how_to_use: 'How to use',
+      how_to_use_description: 'Select the text you want to translate and click on the icon that appears.',
+      how_to_use_step1: 'Step 1: select the text',
+      how_to_use_step2: 'Step 2: click on the icon',
       account: 'Account',
       sign_out: 'Sign out',
       license_key: 'License key',
@@ -78,6 +82,10 @@ const values = {
     error_message: '申し訳ありません、エラーが起きました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。',
     options: {
       language: 'UIの言語',
+      how_to_use: '使い方',
+      how_to_use_description: '翻訳したいテキストを選択し、表示されたアイコンをクリックしてください。',
+      how_to_use_step1: 'ステップ 1: テキストを選択する',
+      how_to_use_step2: 'ステップ 2: アイコンをクリックする',
       account: 'アカウント',
       sign_out: 'ログアウト',
       license_key: 'ライセンス キー',

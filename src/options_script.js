@@ -48,6 +48,10 @@ function updateUILabels() {
   const i18n = new I18n(pref.language())
 
   $('#language-title').text(i18n.t('options.language'))
+  $('#how-to-use-title').text(i18n.t('options.how_to_use'))
+  $('#how-to-use-description').text(i18n.t('options.how_to_use_description'))
+  $('#how-to-use-step1').text(i18n.t('options.how_to_use_step1'))
+  $('#how-to-use-step2').text(i18n.t('options.how_to_use_step2'))
   $('#license-key-title').text(i18n.t('options.license_key'))
   $('#license-key-description').html(licenseKeyDescription())
   $('#license-key-help').html(licenseKeyHelp())

@@ -1,6 +1,6 @@
 const language = ['en', 'ja']
-const sourceLanguage = ['automatic', 'de', 'en', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'ch']
-const targetLanguage = ['de', 'en', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'ch']
+const sourceLanguage = ['automatic', 'de', 'en', 'en-gb', 'en-us', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'zh']
+const targetLanguage = ['de', 'en', 'en-gb', 'en-us', 'fr', 'es', 'it', 'ja', 'nl', 'pl', 'pt', 'pt-br', 'pt-pt', 'ru', 'zh']
 const saveHistories = ['yes', 'no']
 
 export class Preferences {

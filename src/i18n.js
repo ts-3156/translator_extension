@@ -21,7 +21,11 @@ const values = {
       account: 'Account',
       sign_out: 'Sign out',
       license_key: 'License key',
-      license_key_help: 'If you have already purchased the subscription, please enter the key.',
+      license_key_description_unknown: 'Please enter a valid license key. You can get a license for the free version by simply <a class="sign-in" href="#">logging in</a>.',
+      license_key_description_free: 'You have entered your license key for <span class="text-info">the free version</span>. If you want to translation more sentences, please use the professional version.',
+      license_key_description_pro: 'You have entered your license key for <span class="text-info">the professional version</span>.',
+      license_key_description_trial: 'You have entered your license key for the trial version. This key can only be used <span class="text-info">immediately after installation</span>. Please sign in to get the license key for the free version.',
+      license_key_help: 'To get a license key for the free version, please <a class="sign-in" href="#">sign in</a>.',
       support: 'Support account',
       privacy_policy: 'Privacy policy',
       terms_of_service: 'Terms of service',
@@ -76,7 +80,11 @@ const values = {
       account: 'アカウント',
       sign_out: 'ログアウト',
       license_key: 'ライセンス キー',
-      license_key_help: 'サブスクリプションを購入済みの場合は、ライセンス キーを入力してください。',
+      license_key_description_unknown: '有効なライセンス キーを入力してください。無料版のライセンスは<a class="sign-in" href="#">ログイン</a>するだけで取得できます。',
+      license_key_description_free: '<span class="text-info">無料版</span> のライセンス キーが入力されています。もっとたくさん翻訳したい場合は、プロフェッショナル版をご利用ください。',
+      license_key_description_pro: '<span class="text-info">プロフェッショナル版</span> のライセンス キーが入力されています。',
+      license_key_description_trial: 'トライアル版 のライセンス キーが入力されています。このキーは<span class="text-info">インストール直後のみ</span>使えます。ログインして無料版のキーを取得してください。',
+      license_key_help: '無料版のライセンス キーを取得するには、<a class="sign-in" href="#">ログイン</a>してください。',
       support: 'サポートアカウント',
       privacy_policy: 'プライバシーポリシー',
       terms_of_service: '利用規約',
@@ -115,17 +123,26 @@ export class I18n {
     this.language = language
   }
 
-  t(key) {
+  t(key, attrs) {
     let text
+
     try {
-      if (arguments.length === 2) {
-        text = values[this.language][arguments[0]][arguments[1]]
+      if (key.includes('.')) {
+        text = values[this.language][key.split('.')[0]][key.split('.')[1]]
       } else {
         text = values[this.language][key]
       }
+
+      if (attrs) {
+        Object.keys(attrs).forEach(function (key) {
+          text = text.replace(new RegExp('%{' + key + '}', 'g'), attrs[key])
+        })
+      }
     } catch (e) {
+      console.error(e)
       text = 'translation missing: ' + this.language + '.' + key
     }
+
     return text
   }
 }

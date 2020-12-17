@@ -1,45 +1,67 @@
 import {Preferences} from './preferences'
 import {I18n} from './i18n'
 
+function licenseKeyDescription() {
+  const pref = new Preferences()
+  const i18n = new I18n(pref.language())
+  const key = pref.licenseKey()
+  let text
+
+  if (!key) {
+    text = i18n.t('options.license_key_description_unknown')
+  } else if (key.match(/^lk_pro_/)) {
+    text = i18n.t('options.license_key_description_pro')
+  } else if (key.match(/^lk_free_/)) {
+    text = i18n.t('options.license_key_description_free')
+  } else if (key.match(/^lk_trial_/)) {
+    text = i18n.t('options.license_key_description_trial')
+  } else {
+    text = i18n.t('options.license_key_description_unknown')
+  }
+
+  return text
+}
+
 function updateUILabels() {
   const pref = new Preferences()
   const i18n = new I18n(pref.language())
 
-  $('#language-title').text(i18n.t('options', 'language'))
-  $('#license-key-title').text(i18n.t('options', 'license_key'))
-  $('#license-key-help').text(i18n.t('options', 'license_key_help'))
-  $('#support-link').text(i18n.t('options', 'support'))
-  $('#privacy-policy-link').text(i18n.t('options', 'privacy_policy'))
-  $('#terms-of-service-link').text(i18n.t('options', 'terms_of_service'))
-  $('#plan-title').text(i18n.t('options', 'plan_title'))
-  $('#plan-description').text(i18n.t('options', 'plan_description'))
+  $('#language-title').text(i18n.t('options.language'))
+  $('#license-key-title').text(i18n.t('options.license_key'))
+  $('#license-key-description').html(licenseKeyDescription())
+  $('#license-key-help').html(i18n.t('options.license_key_help'))
+  $('#support-link').text(i18n.t('options.support'))
+  $('#privacy-policy-link').text(i18n.t('options.privacy_policy'))
+  $('#terms-of-service-link').text(i18n.t('options.terms_of_service'))
+  $('#plan-title').text(i18n.t('options.plan_title'))
+  $('#plan-description').text(i18n.t('options.plan_description'))
 
-  $('#free-price-amount').text(i18n.t('options', 'free_price_amount'))
-  $('#free-price-description').text(i18n.t('options', 'free_price_description'))
-  $('#free-features').text(i18n.t('options', 'free_features'))
-  $('#free-characters-per-translation').text(i18n.t('options', 'free_characters_per_translation'))
-  $('#free-characters-per-month').text(i18n.t('options', 'free_characters_per_month'))
-  $('#free-button').text(i18n.t('options', 'free_button'))
-  $('#free-link').text(i18n.t('options', 'free_link'))
+  $('#free-price-amount').text(i18n.t('options.free_price_amount'))
+  $('#free-price-description').text(i18n.t('options.free_price_description'))
+  $('#free-features').text(i18n.t('options.free_features'))
+  $('#free-characters-per-translation').text(i18n.t('options.free_characters_per_translation'))
+  $('#free-characters-per-month').text(i18n.t('options.free_characters_per_month'))
+  $('#free-button').text(i18n.t('options.free_button'))
+  $('#free-link').text(i18n.t('options.free_link'))
 
-  $('#pro-price-amount').text(i18n.t('options', 'pro_price_amount'))
-  $('#pro-price-description').text(i18n.t('options', 'pro_price_description'))
-  $('#pro-features').text(i18n.t('options', 'free_features'))
-  $('#pro-characters-per-translation').text(i18n.t('options', 'pro_characters_per_translation'))
-  $('#pro-characters-per-month').text(i18n.t('options', 'pro_characters_per_month'))
-  $('#pro-button').text(i18n.t('options', 'pro_button'))
-  $('#pro-link').text(i18n.t('options', 'pro_link'))
+  $('#pro-price-amount').text(i18n.t('options.pro_price_amount'))
+  $('#pro-price-description').text(i18n.t('options.pro_price_description'))
+  $('#pro-features').text(i18n.t('options.free_features'))
+  $('#pro-characters-per-translation').text(i18n.t('options.pro_characters_per_translation'))
+  $('#pro-characters-per-month').text(i18n.t('options.pro_characters_per_month'))
+  $('#pro-button').text(i18n.t('options.pro_button'))
+  $('#pro-link').text(i18n.t('options.pro_link'))
 
-  $('#source-language-title').text(i18n.t('options', 'source_language'))
-  $('#target-language-title').text(i18n.t('options', 'target_language'))
-  $('#save-histories-title').text(i18n.t('options', 'save_histories'))
+  $('#source-language-title').text(i18n.t('options.source_language'))
+  $('#target-language-title').text(i18n.t('options.target_language'))
+  $('#save-histories-title').text(i18n.t('options.save_histories'))
 
-  $('label[for=\'save-histories-select\']').text(i18n.t('options', 'save_histories'))
+  $('label[for=\'save-histories-select\']').text(i18n.t('options.save_histories'))
 
-  $('#website').text(i18n.t('options', 'website'))
-  $('#sign-in').text(i18n.t('options', 'sign_in'))
-  $('#save').text(i18n.t('options', 'save'))
-  $('#restore').text(i18n.t('options', 'restore'))
+  $('#website').text(i18n.t('options.website'))
+  $('#sign-in').text(i18n.t('options.sign_in'))
+  $('#save').text(i18n.t('options.save'))
+  $('#restore').text(i18n.t('options.restore'))
 
   $('#language-select option').each(function () {
     const $opt = $(this)
@@ -58,13 +80,13 @@ function updateUILabels() {
 
   $('#save-histories-select option').each(function () {
     const $opt = $(this)
-    $opt.text(i18n.t('options', $opt.attr('value')))
+    $opt.text(i18n.t('options.' + $opt.attr('value')))
   })
 
-  $('#save-histories-help').text(i18n.t('options', 'save_histories_help'))
+  $('#save-histories-help').text(i18n.t('options.save_histories_help'))
 }
 
-function setValues() {
+function setTagValues() {
   const pref = new Preferences()
   setValue('language-select', pref.language())
   setValue('license-key-input', pref.licenseKey())
@@ -112,22 +134,40 @@ function saveTargetLanguage() {
 }
 
 function updateUI(callback) {
-  setValues()
+  setTagValues()
   updateUILabels()
+  if (callback) {
+    callback()
+  }
+}
 
-  getProfile(function () {
-    if (callback) {
-      callback()
+function testLicenseKey(done, fail) {
+  getProfile(function (data) {
+    const pref = new Preferences()
+    const init = {
+      method: 'GET',
+      async: true,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      'contentType': 'json'
     }
-  }, function () {
-    if (callback) {
-      callback()
-    }
-  })
+    const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?id=' + data.id + '&key=' + pref.licenseKey()
+    fetch(url, init)
+      .then(function (res) {
+        if (res.status === 200) {
+          res.json().then(done)
+        } else {
+          if (fail) {
+            fail()
+          }
+        }
+      })
+  }, fail)
 }
 
 function getProfile(done, fail) {
-  chrome.identity.getAuthToken({interactive: true}, function (token) {
+  chrome.identity.getAuthToken({interactive: false}, function (token) {
     const init = {
       method: 'GET',
       async: true,
@@ -150,6 +190,25 @@ function getProfile(done, fail) {
   })
 }
 
+function showStatus(id, options) {
+  let category
+  if (options['category'] === 'primary') {
+    category = 'text-primary'
+  } else if (options['category'] === 'danger') {
+    category = 'text-danger'
+  }
+  $('#' + id).removeClass('text-primary').removeClass('text-danger').addClass(category).text(options['text']).fadeIn('slow').delay(2000).fadeOut()
+}
+
+function signIn() {
+  window.location.href = process.env.WEBSITE_URL
+  return false
+}
+
+setTimeout(function () {
+  document.getElementById('main-content').style.display = 'block'
+}, 1000)
+
 $(function () {
   updateUI(function () {
     $('#main-content').show()
@@ -166,7 +225,11 @@ $(function () {
 
   $('#license-key-input').on('blur', function () {
     saveLicenseKey()
-    $('#license-key-status').text('Saved').fadeIn('slow').delay(1000).fadeOut()
+    testLicenseKey(function () {
+      showStatus('license-key-status', {category: 'primary', text: 'test connection succeeded'})
+    }, function () {
+      showStatus('license-key-status', {category: 'danger', text: 'test connection failed'})
+    })
   })
 
   $('#free-button').on('click', function () {
@@ -191,7 +254,7 @@ $(function () {
 
   $('#source-language-select').on('change', function () {
     saveSourceLanguage()
-    $('#source-language-status').text('Saved').fadeIn('slow').delay(1000).fadeOut()
+    showStatus('source-language-status', {category: 'primary', text: 'Saved'})
   })
 
   $('#target-language-select').on('change', function () {
@@ -202,7 +265,11 @@ $(function () {
   $('#restore').on('click', function () {
     new Preferences().clear()
     updateUI()
-    $('#status').text('Restored').fadeIn('slow').delay(1000).fadeOut()
+    showStatus('status', {category: 'primary', text: 'Restored'})
     return false
+  })
+
+  $(document).on('click', '.sign-in', function () {
+    return signIn()
   })
 })

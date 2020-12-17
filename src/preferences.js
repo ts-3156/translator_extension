@@ -9,13 +9,17 @@ export class Preferences {
   }
 
   clear() {
+    const key = this.originalTrialKey()
     this.storage.clear()
+    this.originalTrialKey(key)
+    this.licenseKey(key)
   }
 
   toJSON() {
     return JSON.stringify({
       language: this.language(),
       licenseKey: this.licenseKey(),
+      originalTrialKey: this.originalTrialKey(),
       sourceLanguage: this.sourceLanguage(),
       targetLanguage: this.targetLanguage(),
       saveHistories: this.saveHistories()
@@ -46,6 +50,10 @@ export class Preferences {
 
   language(value) {
     return this.accessValue('language', value, 'en', language)
+  }
+
+  originalTrialKey(value) {
+    return this.accessValue('originalTrialKey', value, null, null)
   }
 
   licenseKey(value) {

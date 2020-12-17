@@ -17,7 +17,7 @@ function translate(word, sendResponse) {
 }
 
 function sendData(data, callback) {
-  const url = process.env.TRANSLATION_API_URL
+  const url = process.env.TRANSLATION_API_URL + '/api/translations'
 
   const xhr = new XMLHttpRequest()
   xhr.open('POST', url)
@@ -68,8 +68,25 @@ chrome.browserAction.onClicked.addListener(function () {
 
 })
 
+function random(length) {
+  var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  var charsLength = chars.length
+  var str = ''
+
+  for (var i = 0; i < length; i++) {
+    str += chars[Math.floor(Math.random() * charsLength)]
+  }
+
+  return str
+}
+
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
+    const key = 'lk_trial_' + random(32)
+    const pref = new Preferences()
+    pref.originalTrialKey(key)
+    pref.licenseKey(key)
+
     chrome.tabs.create({url: chrome.extension.getURL('options.html')})
   }
 })

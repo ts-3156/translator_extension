@@ -28,6 +28,8 @@ const values = {
     },
     options: {
       language: 'UI language',
+      website_description: 'This page is extension options of Deep Translator. If you want to manage your account or licenses, please go to our website.',
+      website_link: 'Deep Translator website',
       how_to_use: 'How to use',
       how_to_use_description: 'Select the text you want to translate and click on the icon that appears.',
       how_to_use_step1: 'Step 1: select the text',
@@ -41,6 +43,7 @@ const values = {
       license_key_description_trial: 'You have entered your license key for the trial version. This key can only be used <b>immediately after installation</b>. Please <a class="sign-in" href="#">sign in</a> to get the license key for the free version.',
       license_key_help: 'To get a license key for the free version, please <a class="sign-in" href="#">sign in</a>.',
       license_key_help_free: 'To get a license key for the professional version, please check <a class="sign-in" href="#">pricing plans</a>.',
+      license_key_help_pro: '<a class="sign-in" href="#">Manage license</a>',
       pricing_plans: 'Pricing plans',
       support_account: 'Support account',
       privacy_policy: 'Privacy policy',
@@ -90,6 +93,8 @@ const values = {
     },
     options: {
       language: 'UIの言語',
+      website_description: 'このページは Deep Translator の拡張機能オプションです。アカウントやライセンスの管理を行う場合は、ウェブサイトをご利用ください。',
+      website_link: 'Deep Translator ウェブサイト',
       how_to_use: '使い方',
       how_to_use_description: '翻訳したいテキストを選択し、表示されたアイコンをクリックしてください。',
       how_to_use_step1: 'ステップ 1: テキストを選択する',
@@ -103,6 +108,7 @@ const values = {
       license_key_description_trial: 'トライアル版 のライセンス キーが入力されています。このキーは<b>インストール直後のみ</b>使えます。<a class="sign-in" href="#">ログイン</a>して無料版のキーを取得してください。',
       license_key_help: '無料版のライセンス キーを取得するには、<a class="sign-in" href="#">ログイン</a>してください。',
       license_key_help_free: 'プロフェッショナル版のライセンス キーが必要ですか？ <a class="sign-in" href="#">料金プラン</a>をご覧ください。',
+      license_key_help_pro: '<a class="sign-in" href="#">ライセンスの管理</a>',
       pricing_plans: '料金プラン',
       support_account: 'サポートアカウント',
       privacy_policy: 'プライバシーポリシー',

@@ -31,7 +31,7 @@ function licenseKeyHelp() {
   if (!key) {
     text = i18n.t('options.license_key_help')
   } else if (key.match(/^lk_pro_/)) {
-    text = ''
+    text = i18n.t('options.license_key_help_pro')
   } else if (key.match(/^lk_free_/)) {
     text = i18n.t('options.license_key_help_free')
   } else if (key.match(/^lk_trial_/)) {
@@ -48,6 +48,8 @@ function updateUILabels() {
   const i18n = new I18n(pref.language())
 
   $('#language-title').text(i18n.t('options.language'))
+  $('#website-description').text(i18n.t('options.website_description'))
+  $('#website-link').text(i18n.t('options.website_link'))
   $('#how-to-use-title').text(i18n.t('options.how_to_use'))
   $('#how-to-use-description').text(i18n.t('options.how_to_use_description'))
   $('#how-to-use-step1').text(i18n.t('options.how_to_use_step1'))
@@ -331,6 +333,11 @@ $(function () {
 
   $(document).on('click', '.sign-in', function () {
     return signIn()
+  })
+
+  $('#website-link').on('click', function () {
+    window.location.href = process.env.WEBSITE_URL + '?via=website'
+    return false
   })
 
   $('#pricing-plans-link').on('click', function () {

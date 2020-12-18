@@ -18,7 +18,7 @@ function translate(word, targetLanguage, sendResponse) {
     sendResponse(translation)
   }, function (xhr) {
     console.error('translation failed', xhr.response)
-    const res = {error: true}
+    const res = {error: true, error_keys: xhr.response.keys}
     const translation = onTranslationResponse(res, word)
     sendResponse(translation)
   })
@@ -53,6 +53,7 @@ function onTranslationResponse(res, word) {
   const pref = new Preferences()
   return {
     error: res.error,
+    error_keys: res.error_keys,
     text: word,
     translation: res.response_text,
     language: pref.language(),

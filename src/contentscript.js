@@ -146,7 +146,9 @@ document.addEventListener('visibilitychange', function () {
     try {
       loadPrefs()
     } catch (e) {
-      if (e.message !== 'Extension context invalidated.') {
+      if (e.message === 'Extension context invalidated.') {
+        console.warn(e)
+      } else {
         throw e
       }
     }
@@ -208,9 +210,9 @@ function processEvent(e) {
 }
 
 function translate(e, word, targetLanguage) {
-  chrome.runtime.sendMessage({handler: 'translate', word: word, targetLanguage: targetLanguage}, function (response) {
+  const callback = function (response) {
     if (response.error) {
-      showPopup(e, formatError(word, response))
+      showPopup(e, formatError('error', response.error_keys))
       return
     }
 
@@ -221,7 +223,18 @@ function translate(e, word, targetLanguage) {
 
     showPopup(e, formatTranslation(word, response))
     loadPrefs() // targetLanguage may be changed
-  })
+  }
+
+  try {
+    chrome.runtime.sendMessage({handler: 'translate', word: word, targetLanguage: targetLanguage}, callback)
+  } catch (err) {
+    if (err.message === 'Extension context invalidated.') {
+      console.warn(err)
+      showPopup(e, formatError('extension_context_invalidated'))
+    } else {
+      throw err
+    }
+  }
 }
 
 function formatTranslation(text, response) {
@@ -245,12 +258,21 @@ function formatTranslation(text, response) {
   `
 }
 
-function formatError() {
+function formatError(error_reason, error_keys) {
+  let message
+  if (error_reason && ['extension_context_invalidated'].includes(error_reason)) {
+    message = i18n.t('error_reason.' + error_reason)
+  } else if (error_keys && (error_keys.includes('limit_chars_per_translation') || error_keys.includes('limit_total_chars'))) {
+    message = i18n.t('error_reason.limitation_exceeded')
+  } else {
+    message = i18n.t('error_message')
+  }
+
   return `
     <div style="position: relative;">
       <span class="text-muted btn-close" aria-hidden="true">&times;</span>
       <div class="text-muted small">${i18n.t('error_text')} : </div>
-      <div class="font-18 mb-3">${i18n.t('error_message')}</div>
+      <div class="font-18 mb-3">${message}</div>
       <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
       <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>
@@ -270,8 +292,9 @@ function goToWebsite() {
   return false
 }
 
-$(document).on('click', '.go-to-website', goToWebsite)
-$(document).on('click', '.go-to-options', goToOptions)
+$(document).on('click', '#popup-translate-inner .go-to-website', goToWebsite)
+$(document).on('click', '#popup-translate-inner .sign-in', goToWebsite)
+$(document).on('click', '#popup-translate-inner .go-to-options', goToOptions)
 
 $(document).click(function (e) {
   processEvent(e)

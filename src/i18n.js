@@ -22,6 +22,10 @@ const values = {
     input_text: 'Input text',
     error_text: 'Error message',
     error_message: 'Sorry, an error has occurred. <br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.',
+    error_reason: {
+      extension_context_invalidated: 'Deep Translator have been updated. Please refresh this page.',
+      limitation_exceeded: 'The maximum number of characters per translation has been exceeded.<br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.'
+    },
     options: {
       language: 'UI language',
       how_to_use: 'How to use',
@@ -80,6 +84,10 @@ const values = {
     input_text: '入力したテキスト',
     error_text: 'エラーメッセージ',
     error_message: '申し訳ありません、エラーが起きました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。',
+    error_reason: {
+      extension_context_invalidated: 'Deep Translator が更新されました。ページを再読み込みしてください。',
+      limitation_exceeded: '翻訳できる文字数の上限を超えました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。'
+    },
     options: {
       language: 'UIの言語',
       how_to_use: '使い方',

@@ -149,6 +149,7 @@ function saveTargetLanguage() {
 function updateUI(callback) {
   setTagValues()
   updateUILabels()
+  updateUsageCounts()
   if (callback) {
     callback()
   }
@@ -180,9 +181,7 @@ function getLicenseKeyType(id, key, done, fail) {
   const init = {
     method: 'GET',
     async: true,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: {'Content-Type': 'application/json'},
     'contentType': 'json'
   }
   const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?id=' + id + '&key=' + key
@@ -219,6 +218,46 @@ function getProfile(done, fail) {
           }
         }
       })
+  })
+}
+
+function getUsageCounts(done) {
+  const pref = new Preferences()
+
+  if (!pref.licenseKey()) {
+    return
+  }
+
+  if (pref.licenseKey().match(/^lk_trial/)) {
+    if (pref.licenseKey() !== pref.originalTrialKey()) {
+      return
+    }
+  }
+
+  const init = {
+    method: 'GET',
+    async: true,
+    headers: {'Content-Type': 'application/json'},
+    'contentType': 'json'
+  }
+  const url = process.env.TRANSLATION_API_URL + '/api/usages' + '?key=' + pref.licenseKey()
+  fetch(url, init)
+    .then(function (res) {
+      if (res.status === 200) {
+        res.json().then(done)
+      }
+    })
+}
+
+function updateUsageCounts() {
+  getUsageCounts(function (res) {
+    $('#usage-monitor-counts')
+      .find('#day1').text(res['day1']).end()
+      .find('#day7').text(res['day7']).end()
+      .find('#day30').text(res['day30']).end()
+      .find('#limit1').text('Unlimited').end()
+      .find('#limit7').text('Unlimited').end()
+      .find('#limit30').text(res['limit30_str'])
   })
 }
 
@@ -263,6 +302,7 @@ $(function () {
       testLicenseKey(function () {
         $('#license-key-description').html(licenseKeyDescription())
         $('#license-key-help').html(licenseKeyHelp())
+        updateUsageCounts()
         showStatus('license-key-status', {category: 'primary', text: i18n.t('options.test_connection_succeeded')})
       }, function () {
         showStatus('license-key-status', {category: 'danger', text: i18n.t('options.test_connection_failed')})

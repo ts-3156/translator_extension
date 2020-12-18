@@ -9,11 +9,11 @@ function licenseKeyDescription() {
 
   if (!key) {
     text = i18n.t('options.license_key_description_unknown')
-  } else if (key.match(/^lk_pro_/)) {
+  } else if (key.match(/^lk_pro_\w{30,50}$/)) {
     text = i18n.t('options.license_key_description_pro')
-  } else if (key.match(/^lk_free_/)) {
+  } else if (key.match(/^lk_free_\w{30,50}$/)) {
     text = i18n.t('options.license_key_description_free')
-  } else if (key.match(/^lk_trial_/)) {
+  } else if (key.match(/^lk_trial_\w{30,50}$/)) {
     text = i18n.t('options.license_key_description_trial')
   } else {
     text = i18n.t('options.license_key_description_unknown')
@@ -30,11 +30,11 @@ function licenseKeyHelp() {
 
   if (!key) {
     text = i18n.t('options.license_key_help')
-  } else if (key.match(/^lk_pro_/)) {
+  } else if (key.match(/^lk_pro_\w{30,50}$/)) {
     text = i18n.t('options.license_key_help_pro')
-  } else if (key.match(/^lk_free_/)) {
+  } else if (key.match(/^lk_free_\w{30,50}$/)) {
     text = i18n.t('options.license_key_help_free')
-  } else if (key.match(/^lk_trial_/)) {
+  } else if (key.match(/^lk_trial_\w{30,50}$/)) {
     text = i18n.t('options.license_key_help')
   } else {
     text = i18n.t('options.license_key_help')
@@ -129,7 +129,7 @@ function saveLanguage() {
 
 function saveLicenseKey() {
   const value = getValue('license-key-input')
-  if (value && (value.match(/^lk_(trial|free|pro)_/))) {
+  if (value && (value.match(/^lk_(trial|free|pro)_\w{30,50}$/))) {
     const pref = new Preferences()
     pref.licenseKey(value)
     return true
@@ -165,7 +165,7 @@ function testLicenseKey(done, fail) {
     return
   }
 
-  if (pref.licenseKey().match(/^lk_trial/)) {
+  if (pref.licenseKey().match(/^lk_trial_\w{30,50}$/)) {
     if (pref.licenseKey() === pref.originalTrialKey()) {
       done()
     } else {
@@ -186,7 +186,7 @@ function getLicenseKeyType(uid, key, done, fail) {
     headers: {'Content-Type': 'application/json'},
     'contentType': 'json'
   }
-  const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?uid=' + uid + '&key=' + key + '&app_version=' + chrome.runtime.getManifest().version
+  const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?uid=' + uid + '&license_key=' + key + '&app_version=' + chrome.runtime.getManifest().version
   fetch(url, init)
     .then(function (res) {
       if (res.status === 200) {
@@ -230,7 +230,7 @@ function getUsageCounts(done) {
     return
   }
 
-  if (pref.licenseKey().match(/^lk_trial/)) {
+  if (pref.licenseKey().match(/^lk_trial_\w{30,50}$/)) {
     if (pref.licenseKey() !== pref.originalTrialKey()) {
       return
     }
@@ -242,7 +242,7 @@ function getUsageCounts(done) {
     headers: {'Content-Type': 'application/json'},
     'contentType': 'json'
   }
-  const url = process.env.TRANSLATION_API_URL + '/api/usages' + '?key=' + pref.licenseKey() + '&app_version=' + chrome.runtime.getManifest().version
+  const url = process.env.TRANSLATION_API_URL + '/api/usages' + '?license_key=' + pref.licenseKey() + '&app_version=' + chrome.runtime.getManifest().version
   fetch(url, init)
     .then(function (res) {
       if (res.status === 200) {

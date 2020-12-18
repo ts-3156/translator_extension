@@ -177,14 +177,14 @@ function testLicenseKey(done, fail) {
   }, fail)
 }
 
-function getLicenseKeyType(id, key, done, fail) {
+function getLicenseKeyType(uid, key, done, fail) {
   const init = {
     method: 'GET',
     async: true,
     headers: {'Content-Type': 'application/json'},
     'contentType': 'json'
   }
-  const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?id=' + id + '&key=' + key
+  const url = process.env.TRANSLATION_API_URL + '/api/licenses' + '?uid=' + uid + '&key=' + key + '&app_version=' + chrome.runtime.getManifest().version
   fetch(url, init)
     .then(function (res) {
       if (res.status === 200) {
@@ -240,7 +240,7 @@ function getUsageCounts(done) {
     headers: {'Content-Type': 'application/json'},
     'contentType': 'json'
   }
-  const url = process.env.TRANSLATION_API_URL + '/api/usages' + '?key=' + pref.licenseKey()
+  const url = process.env.TRANSLATION_API_URL + '/api/usages' + '?key=' + pref.licenseKey() + '&app_version=' + chrome.runtime.getManifest().version
   fetch(url, init)
     .then(function (res) {
       if (res.status === 200) {

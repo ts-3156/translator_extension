@@ -48,6 +48,9 @@ module.exports = {
             manifest.oauth2.client_id = env.MANIFEST_OAUTH2_CLIENT_ID
             // delete manifest.key
             // delete manifest.oauth2
+            if (mode === 'development') {
+              manifest.name += ' (dev)'
+            }
             return JSON.stringify(manifest)
           }
         },

@@ -33,10 +33,14 @@
   "key": null,
   "oauth2": {
     "client_id": null,
-    "scopes":["https://www.googleapis.com/auth/userinfo.email"]
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+    ]
   },
   "options_page": "options.html",
-  "permissions": ["identity"],
+  "permissions": [
+    "identity"
+  ],
   "web_accessible_resources": [
     "options.html",
     "popup.html",

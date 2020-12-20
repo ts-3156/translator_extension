@@ -42,7 +42,7 @@ function sendData(data, done, fail) {
     }
   }
 
-  xhr.onerror = function (e) {
+  xhr.onerror = function () {
     fail(xhr)
   }
 

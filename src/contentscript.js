@@ -248,10 +248,10 @@ function formatTranslation(text, response) {
   return `
     <div style="position: relative;">
       <span class="text-muted btn-close" aria-hidden="true">&times;</span>
-      <div class="text-muted small">${sourceLanguage} : </div>
-      <div class="font-18 mb-3">${response.text}</div>
-      <div class="text-muted small">${i18n.t(response.targetLanguage)} : </div>
-      <div class="font-18 mb-3">${response.translation}</div>
+      <div id="dt-source-language" class="text-muted small mb-1">${sourceLanguage} : </div>
+      <div id="dt-source-text" class="font-18 mb-3">${response.text}</div>
+      <div id="dt-target-language" class="text-muted small mb-1">${i18n.t(response.targetLanguage)} : </div>
+      <div id="dt-target-text" class="font-18 mb-3">${response.translation}</div>
       <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
       <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>
@@ -271,8 +271,8 @@ function formatError(error_reason, error_keys) {
   return `
     <div style="position: relative;">
       <span class="text-muted btn-close" aria-hidden="true">&times;</span>
-      <div class="text-muted small">${i18n.t('error_text')} : </div>
-      <div class="font-18 mb-3">${message}</div>
+      <div id="dt-error-title" class="text-muted small mb-1">${i18n.t('error_text')} : </div>
+      <div id="dt-error-message" class="font-18 mb-3">${message}</div>
       <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
       <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
     </div>

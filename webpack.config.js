@@ -9,6 +9,15 @@ const dotenv_path = mode === 'production' ? '.env.production' : '.env'
 const dotenv = require('dotenv')
 const env = dotenv.config({path: dotenv_path}).parsed
 
+const genVersion = function () {
+  const padZero = function (n) {
+    return ('0' + n).slice(-2)
+  }
+  const d = new Date()
+  return d.getFullYear() + '.' + padZero(d.getMonth() + 1) + padZero(d.getDate()) + '.' + padZero(d.getHours()) + padZero(d.getMinutes())
+
+}
+
 module.exports = {
   devtool: devtool,
   mode: mode,
@@ -48,9 +57,13 @@ module.exports = {
             manifest.oauth2.client_id = env.MANIFEST_OAUTH2_CLIENT_ID
             // delete manifest.key
             // delete manifest.oauth2
+
             if (mode === 'development') {
               manifest.name += ' (dev)'
             }
+
+            manifest.version = genVersion()
+
             return JSON.stringify(manifest)
           }
         },

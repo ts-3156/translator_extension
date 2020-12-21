@@ -30,11 +30,17 @@ function sendData(data, done, fail) {
   const xhr = new XMLHttpRequest()
   xhr.open('POST', url)
   xhr.setRequestHeader('Content-Type', 'application/json')
-  xhr.responseType = 'json'
+  xhr.responseType = 'text'
 
   xhr.onload = function () {
-    if (xhr.readyState === 4) {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
+        try {
+          const res = JSON.parse(xhr.response)
+          done(res)
+        } catch (e) {
+          fail(xhr)
+        }
         done(xhr.response)
       } else {
         fail(xhr)

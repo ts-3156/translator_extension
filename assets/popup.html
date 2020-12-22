@@ -1,6 +1,6 @@
-<template id="popup-translate-template">
+<template id="dt-popup-template">
   <style>
-      #popup-translate-inner {
+      #dt-popup-container {
           min-width: 200px;
           max-width: 400px;
           min-height: 100px;
@@ -13,43 +13,43 @@
           box-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
       }
 
-      #popup-translate-inner #dt-source-language {
+      #dt-popup-container #dt-source-language {
           line-height: 120%;
       }
 
-      #popup-translate-inner #dt-source-text {
+      #dt-popup-container #dt-source-text {
           line-height: 120%;
       }
 
-      #popup-translate-inner #dt-target-language {
+      #dt-popup-container #dt-target-language {
           line-height: 120%;
       }
 
-      #popup-translate-inner #dt-target-text {
+      #dt-popup-container #dt-target-text {
           line-height: 120%;
       }
 
-      #popup-translate-inner #dt-error-title {
+      #dt-popup-container #dt-error-title {
           line-height: 120%;
       }
 
-      #popup-translate-inner #dt-error-message {
+      #dt-popup-container #dt-error-message {
           line-height: 120%;
       }
 
-      #popup-translate-inner .text-muted {
+      #dt-popup-container .text-muted {
           color: #6c757d;
       }
 
-      #popup-translate-inner .small {
+      #dt-popup-container .small {
           font-size: 12px;
       }
 
-      #popup-translate-inner .font-18 {
+      #dt-popup-container .font-18 {
           font-size: 18px;
       }
 
-      #popup-translate-inner .btn-close {
+      #dt-popup-container .btn-close {
           position: absolute;
           top: 3px;
           right: 3px;
@@ -60,7 +60,7 @@
           cursor: pointer;
       }
 
-      #popup-translate-inner .go-to-website {
+      #dt-popup-container .go-to-website {
           position: absolute;
           bottom: 3px;
           right: 3px;
@@ -68,18 +68,18 @@
           cursor: pointer;
       }
 
-      #popup-translate-inner .mb-1 {
+      #dt-popup-container .mb-1 {
           margin-bottom: 5px;
       }
 
-      #popup-translate-inner .mb-2 {
+      #dt-popup-container .mb-2 {
           margin-bottom: 10px;
       }
 
-      #popup-translate-inner .mb-3 {
+      #dt-popup-container .mb-3 {
           margin-bottom: 15px;
       }
   </style>
 
-  <div id="popup-translate-inner"></div>
+  <div id="dt-popup-container"></div>
 </template>

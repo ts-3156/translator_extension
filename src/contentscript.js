@@ -9,6 +9,9 @@ const templates = {}
 const iconBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4xpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDMwMiwgMjAxNy8wMy8wMi0xNjo1OTozOCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpkOGNmOGMzZC1mN2EyLTQwZTctYTRhZC1mMTlkYjBlOGJjNzkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REQxNjIwNEEzOUE0MTFFQkJERURCMzMxODMzREVCRDUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REQxNjIwNDkzOUE0MTFFQkJERURCMzMxODMzREVCRDUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDE2LjAgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4ODhkZDljYS0xMGJjLTRjNzItOGZmNC1iOGJjODYyODhmZmEiIHN0UmVmOmRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpmYmEwZDFiYS03ZDBhLTExN2UtOGNlZC1mZmQ0MmUwMDAwMDAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6gEDGpAAAChElEQVR42pxVSWtTURS+5777hgwmqW1ShwpRqFGcoLSIdeVO1y4cdu4Uf4MopfgHdONGty5d6EYoXVYUabUWqrTFQiuk0SYmZHh5993rl1cqaRqSJneVQM53zjecE8qenLYYd7TQTLPeHzGqkawzJYCyavz9YuaE5n0ASVJjXirtx4SjjXmxNRX9ENFmH0AVktOlyYwcACMmGAdKf0CghnKA9EOn7RMt3z1SPtMUfNaNhgzaGYx6A1JMp2VsQNt+4CCqXVKbvJTnbkiLHoBc8u9Vz11305IpixmNAZnaNEovw0tv7TVgSaarJGG0rQ3dmRqGApHPZu67yIMUfB33hh+VLhfInbU2Rv3EjVp63tz6ZGXNvXFpFRt98ItZe+NJdO5p9OP9+MwbZyWszdvVDCKTVKGH5fEJb7hIbots7V0DFtIQDQLx3l4vkzeiolfqR+9UM0VeuVo/frd2BvJ1B2pizvPkQhcINKicuLYVafRIKLtlpbrnCJJxpE7zRfP3s8hCTJnv7LUX4UXo3QOQy+QJ/xA4FrhbpLoTmIUxzX2L2T4diCV0gQYJbd+sjVra+GrmtnmNa4LGSBny0QWIApRr7sgxP4K25+XgBTmUNSqvnR/gGESchnQopcK4HtSU+FYgyIGGl7zkhHckoOZ/E3+eRxaWxTb0zvFqjlduVU8D8XF0rjnue4Cg36vQEoLzf0Vq5K8bpTLVd2pwuR7EZ5DSX0bZ2iu2aBnnpyiuNi0tD5bW2e2MQVZEYRmhb2wJ1x00gi6dzxIGsXbb9Jajg94jsICXMJsOcHT2PxSivHG2IOeYTE2VJkVf0wHlokzi/gj8k5zy42flYd0Xox1nAfJPgAEAKocXcqfLPQ0AAAAASUVORK5CYII='
 const iconTag = '<img class="clickable" src="' + iconBase64 + '" style="display: inline-block; vertical-align: middle; filter: none;" width="24" height="24">'
 
+const loaderBase64 = 'data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=='
+const loaderTag = '<img src="' + loaderBase64 + '" style="display: inline-block; vertical-align: middle; filter: none;" width="16" height="16">'
+
 function targetLanguageSelector() {
   const elem = `
        <div>
@@ -37,36 +40,35 @@ function targetLanguageSelector() {
   return $elem.html()
 }
 
-function translationButton() {
-  // const button = i18n.t('translate', {selector: targetLanguageSelector()})
-  // return $(iconTag + ' ' + button)
-  return $(iconTag)
-}
+// function translationButton() {
+//   const button = i18n.t('translate', {selector: targetLanguageSelector()})
+//   return $(iconTag + ' ' + button)
+// }
 
 function removeButton() {
-  $('#button-translate').remove()
+  $('#dt-button-translate').remove()
 }
 
 function removePopup() {
-  $('#popup-translate').remove()
+  $('#dt-popup-translate').remove()
 }
 
 function showButton(e, word) {
   word = (' ' + word).slice(1)
   let targetLanguage = pref.targetLanguage
 
-  const $elem = $('<div/>', {id: 'button-translate', style: 'z-index: 10000;'})
-  $elem.html(templates['button-translate-template'].innerHTML)
+  const $elem = $('<div/>', {id: 'dt-button-translate', style: 'z-index: 10000;'})
+  $elem.html(templates['dt-button-template'].innerHTML)
   $elem.css({position: 'fixed', top: -1000, left: -1000})
 
-  $elem.find('#button-translate-inner').empty().append(translationButton())
+  $elem.find('#dt-button-container').empty().append($(iconTag))
   $('body').append($elem)
 
   $('#target-language-selector').on('change', function () {
     targetLanguage = $(this).val()
   })
 
-  $elem.find('#button-translate-inner .clickable').on('click', function (e) {
+  $elem.find('#dt-button-container .clickable').on('click', function (e) {
     removeButton()
     translate(e, word, targetLanguage)
   })
@@ -78,12 +80,12 @@ function showButton(e, word) {
 }
 
 function showPopup(e, content) {
-  const $elem = $('<div/>', {id: 'popup-translate', style: 'z-index: 10000; width: 400px;'})
+  const $elem = $('<div/>', {id: 'dt-popup-translate', style: 'z-index: 10000; width: 400px;'})
 
-  $elem.html(templates['popup-translate-template'].innerHTML)
+  $elem.html(templates['dt-popup-template'].innerHTML)
   $elem.css({position: 'fixed', top: -1000, left: -1000})
 
-  $elem.find('#popup-translate-inner').html(content)
+  $elem.find('#dt-popup-container').html(content)
   $('body').append($elem)
 
   setTimeout(function () {
@@ -91,7 +93,7 @@ function showPopup(e, content) {
     $elem.css({position: 'absolute', top: pos.y, left: pos.x})
   }, 0)
 
-  $elem.find('#popup-translate-inner .btn-close').on('click', function () {
+  $elem.find('#dt-popup-container .btn-close').on('click', function () {
     removePopup()
     return false
   })
@@ -164,11 +166,11 @@ function processEvent(e) {
     return
   }
 
-  if ($(e.target).parents('#button-translate-inner').length !== 0) {
+  if ($(e.target).parents('#dt-button-container').length !== 0) {
     return
   }
 
-  if ($(e.target).parents('#popup-translate-inner').length !== 0) {
+  if ($(e.target).parents('#dt-popup-container').length !== 0) {
     return
   }
 
@@ -315,9 +317,9 @@ function goToWebsite() {
   return false
 }
 
-$(document).on('click', '#popup-translate-inner .go-to-website', goToWebsite)
-$(document).on('click', '#popup-translate-inner .sign-in', goToWebsite)
-$(document).on('click', '#popup-translate-inner .go-to-options', goToOptions)
+$(document).on('click', '#dt-popup-container .go-to-website', goToWebsite)
+$(document).on('click', '#dt-popup-container .sign-in', goToWebsite)
+$(document).on('click', '#dt-popup-container .go-to-options', goToOptions)
 
 $(document).click(function (e) {
   processEvent(e)

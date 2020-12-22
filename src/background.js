@@ -129,6 +129,15 @@ chrome.runtime.onInstalled.addListener(function (details) {
     pref.originalTrialKey(key)
     pref.licenseKey(key)
 
+    try {
+      if (navigator.language) {
+        pref.language(navigator.language)
+        pref.targetLanguage(navigator.language)
+      }
+    } catch (e) {
+      console.warn(e)
+    }
+
     chrome.tabs.create({url: chrome.extension.getURL('options.html')})
   }
 })

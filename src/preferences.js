@@ -13,6 +13,15 @@ export class Preferences {
     this.storage.clear()
     this.originalTrialKey(key)
     this.licenseKey(key)
+
+    try {
+      if (navigator.language) {
+        this.language(navigator.language)
+        this.targetLanguage(navigator.language)
+      }
+    } catch (e) {
+      console.warn(e)
+    }
   }
 
   toJSON() {

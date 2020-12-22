@@ -1,4 +1,4 @@
-import {parse_error, ContextInvalidatedError, GeneralError} from './errors'
+import {parse_error, ContextInvalidatedError, GeneralError, EmptyWordError, OnlyNumbersWordError} from './errors'
 import {I18n} from './i18n'
 
 let pref
@@ -212,6 +212,16 @@ function processEvent(e) {
 }
 
 function translate(e, word, targetLanguage) {
+  if (!word || word === '') {
+    showPopup(e, formatError(EmptyWordError))
+    return
+  }
+
+  if (word.match(/^\d+$/)) {
+    showPopup(e, formatError(OnlyNumbersWordError))
+    return
+  }
+
   const callback = function (response) {
     if (response.error) {
       showPopup(e, formatError(response.error_class))

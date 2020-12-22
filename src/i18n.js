@@ -24,6 +24,8 @@ const values = {
     error_message: 'Sorry, an error has occurred. <br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.',
     error_reason: {
       ContextInvalidatedError: 'Deep Translator have been updated. Please refresh this page.',
+      EmptyWordError: 'No text is selected.',
+      OnlyNumbersWordError: 'Text with only numbers cannot be translated.',
       ConnectionRefusedError: 'Failed to connect to the Internet. ',
       ParseError: 'Failed to interpret the translation result.',
       GeneralError: 'A general error occurred.',
@@ -98,6 +100,8 @@ const values = {
     error_message: '申し訳ありません、エラーが起きました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。',
     error_reason: {
       ContextInvalidatedError: 'Deep Translator が更新されました。ページを再読み込みしてください。',
+      EmptyWordError: 'テキストが選択されていません。',
+      OnlyNumbersWordError: '数字だけのテキストは翻訳できません。',
       ConnectionRefusedError: 'インターネットの接続に失敗しました。',
       ParseError: '翻訳結果の解釈に失敗しました。',
       GeneralError: '一般的なエラーが起きました。',

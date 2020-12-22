@@ -1,5 +1,9 @@
 function parse_error(value) {
-  if (value === 'ContextInvalidatedError') {
+  if (value === 'EmptyWordError') {
+    return EmptyWordError
+  } else if (value === 'OnlyNumbersWordError') {
+    return OnlyNumbersWordError
+  } else if (value === 'ContextInvalidatedError') {
     return ContextInvalidatedError
   } else if (value === 'ConnectionRefusedError') {
     return ConnectionRefusedError
@@ -27,6 +31,20 @@ function parse_error(value) {
 class Error {
   constructor(message) {
     this.message = message
+  }
+}
+
+class EmptyWordError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'EmptyWordError'
+  }
+}
+
+class OnlyNumbersWordError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'OnlyNumbersWordError'
   }
 }
 
@@ -102,6 +120,8 @@ class TotalCharsExceeded extends Error {
 
 export {
   parse_error,
+  EmptyWordError,
+  OnlyNumbersWordError,
   ContextInvalidatedError,
   ConnectionRefusedError,
   ParseError,

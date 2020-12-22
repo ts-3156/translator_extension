@@ -1,3 +1,4 @@
+import {parse_error, ContextInvalidatedError, GeneralError} from './errors'
 import {I18n} from './i18n'
 
 let pref
@@ -90,7 +91,7 @@ function showPopup(e, content) {
     $elem.css({position: 'absolute', top: pos.y, left: pos.x})
   }, 0)
 
-  $elem.find('#popup-translate-inner .btn-close').on('click', function (e) {
+  $elem.find('#popup-translate-inner .btn-close').on('click', function () {
     removePopup()
     return false
   })
@@ -212,7 +213,7 @@ function processEvent(e) {
 function translate(e, word, targetLanguage) {
   const callback = function (response) {
     if (response.error) {
-      showPopup(e, formatError('error', response.error_keys))
+      showPopup(e, formatError(response.error_class, response.error_keys))
       return
     }
 
@@ -230,9 +231,9 @@ function translate(e, word, targetLanguage) {
   } catch (err) {
     if (err.message === 'Extension context invalidated.') {
       console.warn(err)
-      showPopup(e, formatError('extension_context_invalidated'))
+      showPopup(e, formatError(ContextInvalidatedError))
     } else {
-      throw err
+      showPopup(e, formatError(GeneralError))
     }
   }
 }
@@ -258,13 +259,27 @@ function formatTranslation(text, response) {
   `
 }
 
-function formatError(error_reason, error_keys) {
+function formatError(error_class, error_keys) {
   let message
-  if (error_reason && ['extension_context_invalidated'].includes(error_reason)) {
-    message = i18n.t('error_reason.' + error_reason)
-  } else if (error_keys && (error_keys.includes('limit_chars_per_translation') || error_keys.includes('limit_total_chars'))) {
-    message = i18n.t('error_reason.limitation_exceeded')
-  } else {
+
+  try {
+    if (error_keys && (error_keys.includes('limit_chars_per_translation') || error_keys.includes('limit_total_chars'))) {
+      message = i18n.t('error_reason.limitation_exceeded')
+    } else {
+      if (typeof error_class === 'string') {
+        error_class = parse_error(error_class)
+      }
+      const key = 'error_reason.' + new error_class().name
+
+      if (i18n.exist(key)) {
+        message = i18n.t(key)
+      } else {
+        message = i18n.t('error_message')
+      }
+
+      message += '<br><br>' + i18n.t('error_reason.contact')
+    }
+  } catch (e) {
     message = i18n.t('error_message')
   }
 

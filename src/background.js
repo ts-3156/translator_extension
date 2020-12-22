@@ -1,3 +1,4 @@
+import {ConnectionRefusedError, ParseError, UnknownError, BadRequest, RequestTimeout, InternalServerError} from './errors'
 import {Preferences} from './preferences'
 
 function translate(word, targetLanguage, sendResponse) {
@@ -16,9 +17,9 @@ function translate(word, targetLanguage, sendResponse) {
   sendData(data, function (res) {
     const translation = onTranslationResponse(res, word)
     sendResponse(translation)
-  }, function (xhr) {
+  }, function (xhr, error_class) {
     console.error('translation failed', xhr.response)
-    const res = {error: true, error_keys: xhr.response.keys}
+    const res = {error: true, error_keys: xhr.response.keys, error_class: error_class}
     const translation = onTranslationResponse(res, word)
     sendResponse(translation)
   })
@@ -31,6 +32,7 @@ function sendData(data, done, fail) {
   xhr.open('POST', url)
   xhr.setRequestHeader('Content-Type', 'application/json')
   xhr.responseType = 'text'
+  xhr.timeout = 5000
 
   xhr.onload = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -39,17 +41,26 @@ function sendData(data, done, fail) {
           const res = JSON.parse(xhr.response)
           done(res)
         } catch (e) {
-          fail(xhr)
+          fail(xhr, ParseError)
         }
-        done(xhr.response)
+      } else if (xhr.status === 408) {
+        fail(xhr, RequestTimeout)
+      } else if (400 <= xhr.status && xhr.status < 500) {
+        fail(xhr, BadRequest)
+      } else if (500 <= xhr.status && xhr.status < 600) {
+        fail(xhr, InternalServerError)
       } else {
-        fail(xhr)
+        fail(xhr, UnknownError)
       }
     }
   }
 
   xhr.onerror = function () {
-    fail(xhr)
+    if (xhr.status === 0) {
+      fail(xhr, ConnectionRefusedError)
+    } else {
+      fail(xhr, UnknownError)
+    }
   }
 
   xhr.send(JSON.stringify(data))
@@ -60,6 +71,7 @@ function onTranslationResponse(res, word) {
   return {
     error: res.error,
     error_keys: res.error_keys,
+    error_class: new res.error_class().name,
     text: word,
     translation: res.response_text,
     language: pref.language(),

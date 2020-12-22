@@ -23,8 +23,16 @@ const values = {
     error_text: 'Error message',
     error_message: 'Sorry, an error has occurred. <br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.',
     error_reason: {
-      extension_context_invalidated: 'Deep Translator have been updated. Please refresh this page.',
-      limitation_exceeded: 'The maximum number of characters per translation has been exceeded.<br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.'
+      limitation_exceeded: 'The maximum number of characters per translation has been exceeded.<br><br>If you are using the license key for the trial version, please <a class="sign-in" href="#">sign in</a> and enter the license key for the free version.',
+      ContextInvalidatedError: 'Deep Translator have been updated. Please refresh this page.',
+      ConnectionRefusedError: 'Failed to connect to the Internet. ',
+      ParseError: 'Failed to interpret the translation result.',
+      GeneralError: 'A general error occurred.',
+      UnknownError: 'An unknown error occurred.',
+      RequestTimeout: 'The request timed out.',
+      InternalServerError: 'A server error has occurred.',
+      BadRequest: 'Request failed.',
+      contact: 'If same error occurs repeatedly, please contact <a href="https://twitter.com/deeptranslator">@deeptranslator</a>.'
     },
     options: {
       language: 'UI language',
@@ -88,8 +96,16 @@ const values = {
     error_text: 'エラーメッセージ',
     error_message: '申し訳ありません、エラーが起きました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。',
     error_reason: {
-      extension_context_invalidated: 'Deep Translator が更新されました。ページを再読み込みしてください。',
-      limitation_exceeded: '翻訳できる文字数の上限を超えました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。'
+      limitation_exceeded: '翻訳できる文字数の上限を超えました。<br><br>トライアル版のライセンス キーをご利用の場合は、<a class="sign-in" href="#">ログイン</a>して無料版のライセンス キーを入力してください。',
+      ContextInvalidatedError: 'Deep Translator が更新されました。ページを再読み込みしてください。',
+      ConnectionRefusedError: 'インターネットの接続に失敗しました。',
+      ParseError: '翻訳結果の解釈に失敗しました。',
+      GeneralError: '一般的なエラーが起きました。',
+      UnknownError: '原因不明のエラーが起きました。',
+      RequestTimeout: 'リクエストがタイムアウトしました。',
+      InternalServerError: 'サーバーエラーが起きました。',
+      BadRequest: 'リクエストに失敗しました。',
+      contact: '何度も起きる場合は、<a href="https://twitter.com/deeptranslator">@deeptranslator</a> までご連絡ください。'
     },
     options: {
       language: 'UIの言語',
@@ -156,5 +172,10 @@ export class I18n {
     }
 
     return text
+  }
+
+  exist(key) {
+    const value = this.t(key)
+    return value && !value.match(/^translation missing/)
   }
 }

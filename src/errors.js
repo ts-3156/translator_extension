@@ -15,6 +15,10 @@ function parse_error(value) {
     return InternalServerError
   } else if (value === 'BadRequest') {
     return BadRequest
+  } else if (value === 'CharsPerTranslationExceeded') {
+    return CharsPerTranslationExceeded
+  } else if (value === 'TotalCharsExceeded') {
+    return TotalCharsExceeded
   } else {
     throw 'Invalid class name value=' + value
   }
@@ -82,6 +86,20 @@ class BadRequest extends Error {
   }
 }
 
+class CharsPerTranslationExceeded extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'CharsPerTranslationExceeded'
+  }
+}
+
+class TotalCharsExceeded extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'TotalCharsExceeded'
+  }
+}
+
 export {
   parse_error,
   ContextInvalidatedError,
@@ -91,5 +109,7 @@ export {
   UnknownError,
   RequestTimeout,
   InternalServerError,
-  BadRequest
+  BadRequest,
+  CharsPerTranslationExceeded,
+  TotalCharsExceeded
 }

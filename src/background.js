@@ -1,4 +1,4 @@
-import {ConnectionRefusedError, ParseError, UnknownError, BadRequest, RequestTimeout, InternalServerError} from './errors'
+import {ConnectionRefusedError, ParseError, UnknownError, BadRequest, RequestTimeout, InternalServerError, CharsPerTranslationExceeded, TotalCharsExceeded} from './errors'
 import {Preferences} from './preferences'
 
 function translate(word, targetLanguage, sendResponse) {
@@ -19,7 +19,7 @@ function translate(word, targetLanguage, sendResponse) {
     sendResponse(translation)
   }, function (xhr, error_class) {
     console.error('translation failed', xhr.response)
-    const res = {error: true, error_keys: xhr.response.keys, error_class: error_class}
+    const res = {error: true, error_class: error_class}
     const translation = onTranslationResponse(res, word)
     sendResponse(translation)
   })
@@ -43,6 +43,14 @@ function sendData(data, done, fail) {
         } catch (e) {
           console.warn(e)
           fail(xhr, ParseError)
+        }
+      } else if (xhr.status === 400) {
+        if (xhr.response.includes('limit_chars_per_translation')) {
+          fail(xhr, CharsPerTranslationExceeded)
+        } else if (xhr.response.includes('limit_total_chars')) {
+          fail(xhr, TotalCharsExceeded)
+        } else {
+          fail(xhr, RequestTimeout)
         }
       } else if (xhr.status === 408) {
         fail(xhr, RequestTimeout)
@@ -71,7 +79,6 @@ function onTranslationResponse(res, word) {
   const pref = new Preferences()
   return {
     error: res.error,
-    error_keys: res.error_keys,
     error_class: (res.error_class && new res.error_class().name),
     text: word,
     translation: res.response_text,

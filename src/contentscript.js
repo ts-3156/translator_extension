@@ -203,6 +203,7 @@ function processEvent(e) {
 
   if (word && !word.match(/^\s+$/)) {
     removeButton()
+    removePopup()
     showButton(e, word)
   } else {
     removePopup()
@@ -280,6 +281,7 @@ function formatError(error_class, error_keys) {
       message += '<br><br>' + i18n.t('error_reason.contact')
     }
   } catch (e) {
+    console.warn(e)
     message = i18n.t('error_message')
   }
 

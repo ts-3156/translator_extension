@@ -41,6 +41,7 @@ function sendData(data, done, fail) {
           const res = JSON.parse(xhr.response)
           done(res)
         } catch (e) {
+          console.warn(e)
           fail(xhr, ParseError)
         }
       } else if (xhr.status === 408) {
@@ -71,7 +72,7 @@ function onTranslationResponse(res, word) {
   return {
     error: res.error,
     error_keys: res.error_keys,
-    error_class: new res.error_class().name,
+    error_class: (res.error_class && new res.error_class().name),
     text: word,
     translation: res.response_text,
     language: pref.language(),

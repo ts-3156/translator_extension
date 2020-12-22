@@ -313,7 +313,7 @@ function goToOptions() {
 }
 
 function goToWebsite() {
-  window.location.href = process.env.WEBSITE_URL + '?via=popup'
+  window.open(process.env.WEBSITE_URL + '?via=popup', '_blank')
   return false
 }
 

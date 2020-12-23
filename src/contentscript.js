@@ -167,9 +167,10 @@ function processEvent(e) {
     return
   }
 
-  const word = window.getSelection().toString()
+  let word = window.getSelection().toString()
+  word = word.replace(/^\s+/, '').replace(/\s+$/, '')
 
-  if (word && !word.match(/^\s+$/)) {
+  if (word.length > 0) {
     removeButton()
     removePopup()
     showButton(e, word)

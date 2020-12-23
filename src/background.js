@@ -1,4 +1,5 @@
 import {ConnectionRefusedError, ParseError, UnknownError, BadRequest, RequestTimeout, InternalServerError, CharsPerTranslationExceeded, TotalCharsExceeded} from './errors'
+import {Cache} from './cache'
 import {Preferences} from './preferences'
 
 function translate(word, targetLanguage, sendResponse) {
@@ -14,8 +15,16 @@ function translate(word, targetLanguage, sendResponse) {
     target_lang: pref.targetLanguage()
   }
 
+  const cache = new Cache()
+  const cachedTranslation = cache.read(data)
+  if (cachedTranslation) {
+    sendResponse(cachedTranslation)
+    return
+  }
+
   sendData(data, function (res) {
     const translation = onTranslationResponse(res, word)
+    cache.write(data, translation)
     sendResponse(translation)
   }, function (xhr, error_class) {
     console.error('translation failed', xhr.response)

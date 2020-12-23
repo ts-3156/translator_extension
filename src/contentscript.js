@@ -159,13 +159,6 @@ document.addEventListener('visibilitychange', function () {
 }, false)
 
 function processEvent(e) {
-  const selection = window.getSelection()
-  const hit_elem = document.elementFromPoint(e.clientX, e.clientY)
-
-  if (!hit_elem) {
-    return
-  }
-
   if ($(e.target).parents('#dt-button-container').length !== 0) {
     return
   }
@@ -174,34 +167,7 @@ function processEvent(e) {
     return
   }
 
-  if (/INPUT|TEXTAREA/.test(hit_elem.nodeName) || hit_elem.isContentEditable
-    || $(hit_elem).parents().filter(function () {
-      return this.isContentEditable
-    }).length > 0) {
-
-    return
-  }
-
-  let word = ''
-  if (selection.toString()) {
-    let sel_container = selection.getRangeAt(0).commonAncestorContainer
-
-    while (sel_container.nodeType !== Node.ELEMENT_NODE) {
-      sel_container = sel_container.parentNode
-    }
-
-    if (
-      // only choose selection if mouse stopped within immediate parent of selection
-      ($(hit_elem).is(sel_container) || $.contains(sel_container, hit_elem))
-      // and since it can still be quite a large area
-      // narrow it down by only choosing selection if mouse points at the element that is (partially) inside selection
-      && selection.containsNode(hit_elem, true)
-      // But what is the point for the first part of condition? Well, without it, pointing at body for instance would also satisfy the second part
-      // resulting in selection translation showing up in random places
-    ) {
-      word = selection.toString()
-    }
-  }
+  const word = window.getSelection().toString()
 
   if (word && !word.match(/^\s+$/)) {
     removeButton()
@@ -267,7 +233,7 @@ function formatTranslation(text, response) {
       <div id="dt-target-language" class="text-muted small mb-1">${i18n.t(response.targetLanguage)} : </div>
       <div id="dt-target-text" class="font-18 mb-3">${response.translation}</div>
       <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
-      <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
+      <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_deepl_website')}</a>
     </div>
   `
 }
@@ -299,7 +265,7 @@ function formatError(error_class) {
       <div id="dt-error-title" class="text-muted small mb-1">${i18n.t('error_text')} : </div>
       <div id="dt-error-message" class="font-18 mb-3">${message}</div>
       <a class="go-to-options text-muted small" href="#">${i18n.t('extension_options')}</a>
-      <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_website')}</a>
+      <a class="go-to-website text-muted small" href="${process.env.WEBSITE_URL}">${i18n.t('extension_deepl_website')}</a>
     </div>
   `
 }
@@ -313,7 +279,8 @@ function goToOptions() {
 }
 
 function goToWebsite() {
-  window.open(process.env.WEBSITE_URL + '?via=popup', '_blank')
+  // window.open(process.env.WEBSITE_URL + '?via=popup', '_blank')
+  window.open('https://www.deepl.com/translator#' + pref.sourceLanguage + '/' + pref.targetLanguage + '/' + $('#dt-source-text').text(), '_blank')
   return false
 }
 

@@ -30,6 +30,7 @@
     }
   ],
   "content_security_policy": "script-src 'self'; object-src 'self'",
+  "homepage_url": "https://deeptranslatorapp.com",
   "key": null,
   "oauth2": {
     "client_id": null,
